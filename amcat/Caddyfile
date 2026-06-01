@@ -1,0 +1,30 @@
+{
+    auto_https off
+}
+
+:80 {
+    handle /api {
+        reverse_proxy api:5000
+    }
+    handle /api/* {
+        reverse_proxy api:5000
+    }
+
+    handle /s3/* {
+        reverse_proxy {$AMCAT4_S3_HOST} {
+            header_up Host {host}
+        }
+    }
+
+    handle {
+        root * /srv
+        encode zstd gzip
+        try_files {path} /index.html
+        file_server
+    }
+
+    header {
+        X-Frame-Options "SAMEORIGIN"
+        -Server
+    }
+}

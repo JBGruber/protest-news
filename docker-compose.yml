@@ -63,6 +63,8 @@ services:
       - "3030:80"
     environment:
       - AMCAT4_URL=${AMCAT4_URL}
+    volumes:
+      - ./amcat/Caddyfile:/etc/caddy/Caddyfile:ro
     networks:
       - amcat-net
     depends_on:
