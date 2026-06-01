@@ -118,6 +118,28 @@ services:
       - ${ELASTIC_DATA_STORAGE:-elasticsearch_data}:/usr/share/elasticsearch/data:rw
       - ${ELASTIC_SNAPSHOT_PATH:-snapshot_data}:/usr/share/elasticsearch/data/snapshots:rw
 
+  ##########
+  # RSS 2 AmCAT
+  ##########
+  rss2amcat:
+    build: ./rss2amcat
+    container_name: rss2amcat
+    restart: unless-stopped
+    networks:
+      - protest-db-net
+    logging:
+      options:
+        max-size: 10m
+    environment:
+      POSTGRES_DB: freshrss-db
+      POSTGRES_USER: ${DB_USER:-freshrss}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
+      AMCAT_KEY: ${AMCAT_KEY}
+    command: sh -c "while true; do Rscript rss2amcat.r; sleep 3600; done"
+    depends_on:
+      freshrss-db:
+        condition: service_healthy
+
 networks:
   protest-db-net:
   amcat-net:
