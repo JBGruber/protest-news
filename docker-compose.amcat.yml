@@ -1,66 +1,9 @@
 services:
-
-  ##########
-  # RSS
-  ##########
-  freshrss:
-    image: freshrss/freshrss:latest
-    container_name: freshrss
-    hostname: freshrss
-    restart: unless-stopped
-    networks:
-      - protest-db-net
-    ports:
-      - "8082:80"
-    logging:
-      options:
-        max-size: 10m
-    volumes:
-      - ./data/freshrss-app:/var/www/FreshRSS/data
-      - ./data/freshrss-extensions:/var/www/FreshRSS/extensions
-    environment:
-      TZ: Europe/Paris
-      CRON_MIN: '*/10'
-      FRESHRSS_DB_HOST: freshrss-db
-      FRESHRSS_DB_PORT: 5432
-      FRESHRSS_DB_BASE: freshrss-db
-      FRESHRSS_DB_USER: ${DB_USER:-freshrss}
-      FRESHRSS_DB_PASSWORD: ${DB_PASSWORD:-freshrss}
-      FRESHRSS_DB_TYPE: pgsql
-    depends_on:
-      freshrss-db:
-        condition: service_healthy
-
-  freshrss-db:
-    image: postgres:17
-    container_name: freshrss-db
-    hostname: freshrss-db
-    restart: unless-stopped
-    networks:
-      - protest-db-net
-    logging:
-      options:
-        max-size: 10m
-    volumes:
-      - ./data/freshrss-db:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: freshrss-db
-      POSTGRES_USER: ${DB_USER:-freshrss}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-freshrss}"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-
-  ##########
-  # AmCAT
-  ##########
-  amcat-frontend:
+  frontend:
     image: ccsamsterdam/amcat4_frontend:${AMCAT4_VERSION:-latest}
     restart: unless-stopped
-    ports:
-      - "3030:80"
+    expose:
+      - "80"
     environment:
       - AMCAT4_URL=${AMCAT4_URL}
     networks:
@@ -71,10 +14,12 @@ services:
   api:
     image: ccsamsterdam/amcat4_backend:${AMCAT4_VERSION:-latest}
     restart: unless-stopped
+    expose:
+      - "80"
     networks:
       - amcat-net
     environment:
-      - amcat4_elastic_host=http://amcat-elasticsearch:9200
+      - amcat4_elastic_host=http://elasticsearch:9200
       - amcat4_host=${AMCAT4_URL}
       - FORWARDED_ALLOW_IPS=*
       - amcat4_elastic_password
@@ -84,12 +29,22 @@ services:
       - amcat4_middlecat_url
       - amcat4_admin_email
     depends_on:
-      amcat-elasticsearch:
+      elasticsearch:
         condition: service_healthy
 
-  amcat-elasticsearch:
+  elasticsearch-init:
+    image: busybox
+    user: root
+    command: chown -R 1000:0 /snapshots
+    volumes:
+      - ${ELASTIC_SNAPSHOT_PATH:-snapshot_data}:/snapshots
+
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.18.4
     restart: unless-stopped
+    depends_on:
+      elasticsearch-init:
+        condition: service_completed_successfully
     ulimits:
       memlock:
         soft: -1
@@ -119,7 +74,6 @@ services:
       - ${ELASTIC_SNAPSHOT_PATH:-snapshot_data}:/usr/share/elasticsearch/data/snapshots:rw
 
 networks:
-  protest-db-net:
   amcat-net:
 
 volumes:
