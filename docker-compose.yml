@@ -137,6 +137,7 @@ services:
       POSTGRES_USER: ${DB_USER:-freshrss}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
       AMCAT_KEY: ${AMCAT_KEY}
+      AMCAT_API: ${AMCAT_API}
     command: sh -c "while true; do Rscript rss2amcat.r; sleep 3600; done"
     depends_on:
       freshrss-db:

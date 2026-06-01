@@ -5,15 +5,14 @@ suppressPackageStartupMessages({
   library(dplyr)
   library(stringr)
 })
-Sys.setenv(AMCT_API = "http://amcat-frontend:80/api")
+
 if (file.exists(".env")) {
   readRenviron(".env")
-  Sys.setenv(AMCT_API = "https://protest.jbgruber.online/api")
 }
 
 # 0. connect to AmCAT and create index
 amcat_login(
-  Sys.getenv("AMCT_API"),
+  Sys.getenv("AMCAT_API"),
   api_key = Sys.getenv("AMCAT_KEY"),
   cache = 1L,
   force_refresh = TRUE
