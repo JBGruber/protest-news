@@ -1,0 +1,53 @@
+services:
+  freshrss:
+    image: freshrss/freshrss:latest
+    container_name: freshrss
+    hostname: freshrss
+    restart: unless-stopped
+    networks:
+      - protest-db-net
+    ports:
+      - "8082:80"
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - ./data/freshrss-app:/var/www/FreshRSS/data
+      - ./data/freshrss-extensions:/var/www/FreshRSS/extensions
+    environment:
+      TZ: Europe/Paris
+      CRON_MIN: '*/10'
+      FRESHRSS_DB_HOST: freshrss-db
+      FRESHRSS_DB_PORT: 5432
+      FRESHRSS_DB_BASE: freshrss-db
+      FRESHRSS_DB_USER: ${DB_USER:-freshrss}
+      FRESHRSS_DB_PASSWORD: ${DB_PASSWORD:-freshrss}
+      FRESHRSS_DB_TYPE: pgsql
+    depends_on:
+      freshrss-db:
+        condition: service_healthy
+
+  freshrss-db:
+    image: postgres:17
+    container_name: freshrss-db
+    hostname: freshrss-db
+    restart: unless-stopped
+    networks:
+      - protest-db-net
+    logging:
+      options:
+        max-size: 10m
+    volumes:
+      - ./data/freshrss-db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: freshrss-db
+      POSTGRES_USER: ${DB_USER:-freshrss}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-freshrss}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+networks:
+  protest-db-net:

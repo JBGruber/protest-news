@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml xmlns:frss="https://freshrss.org/opml" version="2.0">
+  <head>
+    <title>FreshRSS</title>
+    <dateCreated>Mon, 01 Jun 2026 12:57:21 +0200</dateCreated>
+  </head>
+  <body>
+    <outline text="news">
+      <outline text="- DerWesten.de" type="rss" xmlUrl="https://www.derwesten.de/feed" htmlUrl="https://www.derwesten.de/"/>
+      <outline text="Abendzeitung News - Allgemein" type="rss" xmlUrl="https://www.abendzeitung-muenchen.de/storage/rss/rss/alle-artikel-abendzeitung.xml" htmlUrl="https://abendzeitung-muenchen.de/"/>
+      <outline text="Aktuelle Nachrichten: News aus Deutschland und der Welt" type="rss" xmlUrl="https://www.rtl.de/rss/feed/news" htmlUrl="https://www.rtl.de/news"/>
+      <outline text="Aktuelle Nachrichten aus Osnabrück und Umgebung" type="rss" xmlUrl="https://www.noz.de/rss" htmlUrl="https://www.noz.de/rss"/>
+      <outline text="Aktuelle Nachrichten aus Schleswig-Holstein" type="rss" xmlUrl="https://www.shz.de/rss" htmlUrl="https://www.shz.de/rss"/>
+      <outline text="Alle Meldungen - SZ.de" type="rss" xmlUrl="https://rss.sueddeutsche.de/alles" htmlUrl="https://www.sueddeutsche.de/"/>
+      <outline text="Augsburg" type="rss" xmlUrl="https://www.augsburger-allgemeine.de/augsburg/rss" htmlUrl="https://www.augsburger-allgemeine.de/augsburg/rss"/>
+      <outline text="Berliner Morgenpost" type="rss" xmlUrl="https://www.morgenpost.de/rss" htmlUrl="https://www.morgenpost.de/"/>
+      <outline text="Berliner Zeitung" type="rss" xmlUrl="https://www.berliner-zeitung.de/feed.xml" htmlUrl="https://www.berliner-zeitung.de/"/>
+      <outline text="BILD - Alles" type="rss" xmlUrl="https://www.bild.de/feed/alles.xml" htmlUrl="https://www.bild.de/feed/alles.xml"/>
+      <outline text="Business Insider Main RSS für User" type="rss" xmlUrl="https://www.businessinsider.de/feed/businessinsider-alle-artikel/" htmlUrl="https://www.businessinsider.de/feed/businessinsider-alle-artikel/"/>
+      <outline text="DER SPIEGEL - Schlagzeilen" type="rss" xmlUrl="https://www.spiegel.de/schlagzeilen/index.rss" htmlUrl="https://www.spiegel.de/"/>
+      <outline text="Deutschlandfunk - Fortlaufende Nachrichten vom 11. April 2025" type="rss" xmlUrl="https://www.deutschlandfunk.de/nachrichten-100.rss" htmlUrl="https://www.deutschlandfunk.de/nachrichten-index-34836.html"/>
+      <outline text="Ditto-RSS" type="rss" xmlUrl="https://www.nw.de/index.rss" htmlUrl="http://www.lz.de/ditto/live_inhalte/"/>
+      <outline text="DNN" type="rss" xmlUrl="https://www.dnn.de/arc/outboundfeeds/rss/" htmlUrl="https://www.dnn.de/"/>
+      <outline text="Frankenpost - Topmeldung" type="rss" xmlUrl="https://www.frankenpost.de/topmeldung.rss2.feed" htmlUrl="https://www.frankenpost.de/topmeldung"/>
+      <outline text="Frankfurter Rundschau - Startseite" type="rss" xmlUrl="http://www.fr.de/rssfeed.rdf" htmlUrl="https://www.fr.de/"/>
+      <outline text="Freie Presse - Regionales" type="rss" xmlUrl="https://www.freiepresse.de/feed.atom" htmlUrl="https://www.freiepresse.de/rss/rss_regional.php"/>
+      <outline text="fudder.de/freiburg/stadtgespraech.rss" type="rss" xmlUrl="http://fudder.de/freiburg/stadtgespraech.rss"/>
+      <outline text="Gesellschaft" type="rss" xmlUrl="https://www.3sat.de/rss/zdf/gesellschaft" htmlUrl="https://www.3sat.de/rss/zdf/gesellschaft"/>
+      <outline text="Hamburger Abendblatt" type="rss" xmlUrl="https://www.abendblatt.de/rss" htmlUrl="https://www.abendblatt.de/"/>
+      <outline text="HAZ" type="rss" xmlUrl="https://www.haz.de/arc/outboundfeeds/rss/" htmlUrl="https://www.haz.de/"/>
+      <outline text="heise online News" type="rss" xmlUrl="https://www.heise.de/rss/heise.rdf" htmlUrl="https://www.heise.de/"/>
+      <outline text="HNA - Politik" type="rss" xmlUrl="http://www.hna.de/politik/rssfeed.xml" htmlUrl="https://www.hna.de/politik/"/>
+      <outline text="Home – Badische Neueste Nachrichten" type="rss" xmlUrl="https://bnn.de/feed" htmlUrl="https://bnn.de/"/>
+      <outline text="infrankende STARTSEITE" type="rss" xmlUrl="https://www.infranken.de/storage/rss/rss/2.0/startseite.xml" htmlUrl="https://www.infranken.de/storage/rss/rss/2.0/startseite.xml"/>
+      <outline text="JUNGE FREIHEIT" type="rss" xmlUrl="https://jungefreiheit.de/feed/" htmlUrl="https://jungefreiheit.de/"/>
+      <outline text="Karlsruhe Insider" type="rss" xmlUrl="https://www.karlsruhe-insider.de/feed" htmlUrl="https://www.karlsruhe-insider.de/"/>
+      <outline text="kreiszeitung.de - Startseite" type="rss" xmlUrl="https://www.kreiszeitung.de/rssfeed.rdf" htmlUrl="https://www.kreiszeitung.de/"/>
+      <outline text="LVZ" type="rss" xmlUrl="https://www.lvz.de/arc/outboundfeeds/rss/" htmlUrl="https://www.lvz.de/"/>
+      <outline text="manager - Schlagzeilen" type="rss" xmlUrl="https://www.manager-magazin.de/news/index.rss" htmlUrl="https://www.manager-magazin.de/"/>
+      <outline text="MAZ" type="rss" xmlUrl="https://www.maz-online.de/arc/outboundfeeds/rss/" htmlUrl="https://www.maz-online.de/"/>
+      <outline text="Merkur.de - Startseite" type="rss" xmlUrl="http://www.merkur.de/rssfeed.rdf" htmlUrl="https://www.merkur.de/"/>
+      <outline text="MOPO" type="rss" xmlUrl="https://www.mopo.de/feed/" htmlUrl="https://www.mopo.de/"/>
+      <outline text="n-tv.de - Startseite" type="rss" xmlUrl="https://www.n-tv.de/rss" htmlUrl="https://www.n-tv.de/"/>
+      <outline text="Nachrichten - WDR.de" type="rss" xmlUrl="https://www1.wdr.de/wissen/uebersicht-nachrichten-100.feed" htmlUrl="https://www1.wdr.de/nachrichten/uebersicht-nachrichten-100.html"/>
+      <outline text="Nachrichten - WELT" type="rss" xmlUrl="https://www.welt.de/feeds/latest.rss" htmlUrl="https://www.welt.de/feeds/latest.rss"/>
+      <outline text="NDR.de - Das Beste am Norden - Radio - Fernsehen - Nachrichten" type="rss" xmlUrl="https://www.ndr.de/index~rdf.xml" htmlUrl="https://www.ndr.de/NDRde-Das-Beste-am-Norden-Radio-Fernsehen-Nachrichten,homepage985.html"/>
+      <outline text="news-und-nachrichten.de/?feed=rss2" type="rss" xmlUrl="https://news-und-nachrichten.de/?feed=rss2"/>
+      <outline text="Newsflash24" type="rss" xmlUrl="https://newsflash24.de/feed/" htmlUrl="https://newsflash24.de/"/>
+      <outline text="Online Nachrichten aktuell – Epoch Times (Deutsch)" type="rss" xmlUrl="https://www.epochtimes.de/feed" htmlUrl="https://www.epochtimes.de/"/>
+      <outline text="OZ" type="rss" xmlUrl="https://www.ostsee-zeitung.de/arc/outboundfeeds/rss/" htmlUrl="https://www.ostsee-zeitung.de/"/>
+      <outline text="Politik" type="rss" xmlUrl="https://www.deutschlandfunkkultur.de/politik-114.rss" htmlUrl="https://www.deutschlandfunkkultur.de/politik-114.html"/>
+      <outline text="Politik" type="rss" xmlUrl="https://www.news.de/rss/364367598/politik/" htmlUrl="https://www.news.de/aktuelles/politik/364367598/1/"/>
+      <outline text="Politik" type="rss" xmlUrl="https://feed.ksta.de/feed/rss/politik/index.rss" htmlUrl="https://www.ksta.de/politik"/>
+      <outline text="Politik aktuell: Nachrichten aus Deutschland, Europa und der Welt" type="rss" xmlUrl="https://www.t-online.de/nachrichten/feed.rss" htmlUrl="https://www.t-online.de/nachrichten/"/>
+      <outline text="Presseportal.de" type="rss" xmlUrl="https://www.presseportal.de/rss/presseportal.rss2" htmlUrl="https://www.presseportal.de/"/>
+      <outline text="rbb24 | rbb24" type="rss" xmlUrl="https://www.rbb24.de/aktuell/index.xml/feed=rss.xml" htmlUrl="https://www.rbb24.de/aktuell/index.html"/>
+      <outline text="RND" type="rss" xmlUrl="https://www.rnd.de/arc/outboundfeeds/rss/" htmlUrl="https://www.rnd.de/"/>
+      <outline text="Rolling Stone" type="rss" xmlUrl="https://www.rollingstone.de/feed/" htmlUrl="https://www.rollingstone.de/"/>
+      <outline text="rss.focus.de/fol/XML/rss_folnews.xml" type="rss" xmlUrl="http://rss.focus.de/fol/XML/rss_folnews.xml"/>
+      <outline text="RUHR24 - ruhr24" type="rss" xmlUrl="https://ruhr24.de/rssfeed.rdf" htmlUrl="https://www.ruhr24.de/"/>
+      <outline text="Ruhr Nachrichten" type="rss" xmlUrl="https://www.ruhrnachrichten.de/feed/" htmlUrl="https://www.ruhrnachrichten.de/"/>
+      <outline text="Startseite | RP ONLINE" type="rss" xmlUrl="https://rp-online.de/feed.rss" htmlUrl="https://rp-online.de/feed.rss"/>
+      <outline text="Startseite&#10; | Westdeutsche Zeitung" type="rss" xmlUrl="https://www.wz.de/feed.rss" htmlUrl="https://www.wz.de/feed.rss"/>
+      <outline text="STERN.DE RSS-Feed - Der Tag im Überblick" type="rss" xmlUrl="https://www.stern.de/feed/standard/all/" htmlUrl="https://www.stern.de/"/>
+      <outline text="Stuttgarter Zeitung - Startseite" type="rss" xmlUrl="https://www.stuttgarter-zeitung.de/index.rss" htmlUrl="https://www.stuttgarter-zeitung.de/"/>
+      <outline text="suedkurier.de - Schwarzwald-Baar-Heuberg" type="rss" xmlUrl="https://www.suedkurier.de/storage/rss/rss/sbh.xml" htmlUrl="https://www.suedkurier.de/"/>
+      <outline text="SWR3" type="rss" xmlUrl="https://www.swr3.de/~rss/index.xml" htmlUrl="https://www.swr3.de/index.html"/>
+      <outline text="swrfernsehen.de/~rss/index.xml" type="rss" xmlUrl="https://www.swrfernsehen.de/~rss/index.xml"/>
+      <outline text="SZ" type="rss" xmlUrl="https://www.saechsische.de/arc/outboundfeeds/rss/" htmlUrl="https://www.saechsische.de/"/>
+      <outline text="Südwestrundfunk | SWR.de" type="rss" xmlUrl="https://www.swr.de/~rss/index.xml" htmlUrl="https://www.swr.de/index.html"/>
+      <outline text="t3n.de - News" type="rss" xmlUrl="https://t3n.de/rss.xml" htmlUrl="https://t3n.de/"/>
+      <outline text="tagesschau.de - Die Nachrichten der ARD" type="rss" xmlUrl="https://www.tagesschau.de/infoservices/alle-meldungen-100~rss2.xml" htmlUrl="https://www.tagesschau.de/infoservices/alle-meldungen-100.html"/>
+      <outline text="tagesspiegel.de: News" type="rss" xmlUrl="https://www.tagesspiegel.de/contentexport/feed/home" htmlUrl="https://www.tagesspiegel.de/"/>
+      <outline text="taz.de - taz.de" type="rss" xmlUrl="https://taz.de/rss.xml" htmlUrl="https://taz.de/rss.xml"/>
+      <outline text="Thüringer Allgemeine" type="rss" xmlUrl="https://www.thueringer-allgemeine.de/rss" htmlUrl="https://www.thueringer-allgemeine.de/"/>
+      <outline text="tz - Welt" type="rss" xmlUrl="https://www.tz.de/welt/rssfeed.rdf" htmlUrl="https://www.tz.de/welt/"/>
+      <outline text="wa.de - wa.de" type="rss" xmlUrl="https://www.wa.de/rssfeed.rdf" htmlUrl="https://www.wa.de/"/>
+      <outline text="Watson: News ohne Bla Bla" type="rss" xmlUrl="https://www.watson.de/api/2.0/rss/index.xml" htmlUrl="https://www.watson.de/api/2.0/rss/index.xml"/>
+      <outline text="Westdeutsche Allgemeine Zeitung" type="rss" xmlUrl="https://www.waz.de/rss" htmlUrl="https://www.waz.de/"/>
+      <outline text="Wirtschaft-Nachrichten von BR24" type="rss" xmlUrl="https://nachrichtenfeeds.br.de/rss/nachrichten/seiten/QXAPwyN" htmlUrl="https://www.br.de/nachrichten/wirtschaft,QXAPwyN"/>
+      <outline text="WirtschaftsWoche Online Schlagzeilen" type="rss" xmlUrl="https://feeds.cms.wiwo.de/rss/schlagzeilen" htmlUrl="https://www.wiwo.de/"/>
+      <outline text="ZDFheute" type="rss" xmlUrl="https://www.zdfheute.de/rss/zdf/nachrichten" htmlUrl="https://www.zdf.de/rss/zdf/nachrichten"/>
+      <outline text="zeit.de/index" type="rss" xmlUrl="https://www.zeit.de/index"/>
+    </outline>
+  </body>
+</opml>
