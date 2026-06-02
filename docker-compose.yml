@@ -143,6 +143,26 @@ services:
       freshrss-db:
         condition: service_healthy
 
+  ##########
+  # Hydrate docs
+  ##########
+  paperboy:
+    build: ./paperboy
+    container_name: paperboy2amcat
+    restart: unless-stopped
+    networks:
+      - protest-db-net
+    logging:
+      options:
+        max-size: 10m
+    environment:
+      AMCAT_KEY: ${AMCAT_KEY}
+      AMCAT_API: ${AMCAT_API}
+    command: sh -c "while true; do Rscript paperboy.r; sleep 3700; done"
+    depends_on:
+      freshrss-db:
+        condition: service_healthy
+
 networks:
   protest-db-net:
   amcat-net:
