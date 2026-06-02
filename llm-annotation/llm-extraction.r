@@ -13,6 +13,9 @@ if (file.exists(".env")) {
   setwd(here::here("llm-annotation"))
 }
 
+options(
+  rollama_server = Sys.getenv("OLLAMA")
+)
 model <- "qwen3.5:9b"
 check_model_installed(model, auto_pull = TRUE)
 
@@ -37,7 +40,7 @@ annotation_candidates <- query_documents(
     )
   )
 
-if (condition) {
+if (nrow(annotation_candidates) > 0) {
   # 2. read in prompt and annotate data
   prompt <- readr::read_file("prompt.md")
   schema <- jsonlite::read_json("ollama_schema.json")
@@ -210,6 +213,10 @@ if (condition) {
 
   # 4. update data
   update_documents(index = "de-news", documents = articles_annotated_parsed)
+
+  cli::cli_alert_success(
+    "{nrow(articles_annotated_parsed)} documents updated [{nrow(articles_annotated)} - {nrow(articles_annotated_parsed)} failed]."
+  )
 } else {
   # if there are no documents to process, wait for 10 minutes
   Sys.sleep(10 * 60)
