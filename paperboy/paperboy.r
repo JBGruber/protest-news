@@ -57,4 +57,7 @@ if (nrow(unhydrated) > 0) {
   # 4. update in place
   update_documents("de-news", documents = processed_entries)
   cli::cli_alert_success("Hydrated {nrow(processed_entries)} documents")
+} else {
+  # if there are no documents to process, wait for 10 minutes
+  Sys.sleep(10 * 60)
 }

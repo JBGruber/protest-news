@@ -163,6 +163,26 @@ services:
       freshrss-db:
         condition: service_healthy
 
+  ##########
+  # LLM annotation
+  ##########
+  rollama:
+    build: ./llm-annotation
+    container_name: rollama
+    restart: unless-stopped
+    networks:
+      - protest-db-net
+    logging:
+      options:
+        max-size: 10m
+    environment:
+      AMCAT_KEY: ${AMCAT_KEY}
+      AMCAT_API: ${AMCAT_API}
+    command: sh -c "while true; do Rscript llm-extraction.r; sleep 3700; done"
+    depends_on:
+      freshrss-db:
+        condition: service_healthy
+
 networks:
   protest-db-net:
   amcat-net:

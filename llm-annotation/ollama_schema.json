@@ -1,0 +1,293 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "protests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "is_protest": {
+            "type": "string",
+            "enum": ["yes", "unsure"]
+          },
+          "event_date": {
+            "type": ["string", "null"],
+            "description": "ISO date YYYY-MM-DD or null"
+          },
+          "number_of_days": {
+            "type": "integer"
+          },
+          "locations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "square_institution": {"type": ["string", "null"]},
+                "city": {"type": "string"},
+                "bundesland": {"type": "string"},
+                "country": {"type": "string"}
+              },
+              "required": ["square_institution", "city", "bundesland", "country"],
+              "additionalProperties": false
+            }
+          },
+          "protest_size_estimates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "source_type": {
+                  "type": "string",
+                  "enum": ["organizers", "police", "media", "other", "unattributed", "unclear"]
+                },
+                "text": {
+                  "type": "string",
+                  "description": "How the number appears verbatim in the article"
+                },
+                "numerical_value": {
+                  "type": ["number", "string"],
+                  "description": "Conservative numeric estimate or 'unknown'"
+                },
+                "source_name": {"type": ["string", "null"]},
+                "city": {
+                  "type": ["string", "null"],
+                  "description": "City this estimate refers to, or null if it applies to the whole event"
+                }
+              },
+              "required": ["source_type", "text", "numerical_value", "source_name", "city"],
+              "additionalProperties": false
+            }
+          },
+          "main_issue": {"type": "string"},
+          "topics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "topic_name": {
+                  "type": "string",
+                  "enum": [
+                    "climate_environment", "social_justice", "racism_discrimination",
+                    "anti_rightwing_extremism", "rightwing_extremism", "gender_feminism",
+                    "lgbtq_rights", "immigration_asylum", "war_peace", "economic_inequality",
+                    "labor_workers_rights", "housing", "education", "healthcare",
+                    "digital_privacy", "eu_politics", "energy_policy", "covid_health_policy",
+                    "east_west_issues", "other"
+                  ]
+                },
+                "confidence": {
+                  "type": "string",
+                  "enum": ["high", "medium", "low"]
+                },
+                "relevance": {
+                  "type": "string",
+                  "enum": ["primary", "secondary"]
+                },
+                "citations": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                }
+              },
+              "required": ["topic_name", "confidence", "relevance", "citations"],
+              "additionalProperties": false
+            }
+          },
+          "protest_slogan": {"type": ["string", "null"]},
+          "target": {"type": ["string", "null"]},
+          "organizations": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "participant_demographics": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "group": {"type": "string"},
+                "citations": {
+                  "type": "array",
+                  "items": {"type": "string"}
+                }
+              },
+              "required": ["group", "citations"],
+              "additionalProperties": false
+            }
+          },
+          "counterprotestors": {
+            "type": "object",
+            "properties": {
+              "reported": {"type": "boolean"},
+              "who": {"type": ["string", "null"]},
+              "number": {"type": ["integer", "string", "null"]},
+              "citations": {
+                "type": ["array", "null"],
+                "items": {"type": "string"}
+              }
+            },
+            "required": ["reported", "who", "number", "citations"],
+            "additionalProperties": false
+          },
+          "police": {
+            "type": "object",
+            "properties": {
+              "present": {
+                "type": "string",
+                "enum": ["yes", "no", "not reported"]
+              },
+              "action_beyond_presence": {"type": ["string", "null"]},
+              "violence": {"type": ["string", "null"]},
+              "citations": {
+                "type": ["array", "null"],
+                "items": {"type": "string"}
+              }
+            },
+            "required": ["present", "action_beyond_presence", "violence", "citations"],
+            "additionalProperties": false
+          },
+          "arrests": {
+            "type": "object",
+            "properties": {
+              "reported": {"type": "boolean"},
+              "number": {"type": ["integer", "string", "null"]}
+            },
+            "required": ["reported", "number"],
+            "additionalProperties": false
+          },
+          "protester_violence": {
+            "type": "object",
+            "properties": {
+              "reported": {"type": "boolean"},
+              "type": {
+                "type": ["integer", "null"],
+                "enum": [1, 2, 3, 4, 5, 6, 7, null],
+                "description": "1=Weapons, 2=Physical, 3=Other, 4=Weapons+Physical, 5=Weapons+Other, 6=Physical+Other, 7=All three"
+              },
+              "citations": {
+                "type": ["array", "null"],
+                "items": {"type": "string"}
+              }
+            },
+            "required": ["reported", "type", "citations"],
+            "additionalProperties": false
+          },
+          "property_damage": {
+            "type": "object",
+            "properties": {
+              "reported": {"type": "boolean"},
+              "euros": {"type": ["number", "string", "null"]}
+            },
+            "required": ["reported", "euros"],
+            "additionalProperties": false
+          },
+          "injuries": {
+            "type": "object",
+            "properties": {
+              "protesters": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]}
+                },
+                "required": ["reported", "number"],
+                "additionalProperties": false
+              },
+              "bystanders": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]}
+                },
+                "required": ["reported", "number"],
+                "additionalProperties": false
+              },
+              "police": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]}
+                },
+                "required": ["reported", "number"],
+                "additionalProperties": false
+              },
+              "others": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]},
+                  "who": {"type": ["string", "null"]}
+                },
+                "required": ["reported", "number", "who"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["protesters", "bystanders", "police", "others"],
+            "additionalProperties": false
+          },
+          "deaths": {
+            "type": "object",
+            "properties": {
+              "protesters": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]}
+                },
+                "required": ["reported", "number"],
+                "additionalProperties": false
+              },
+              "bystanders": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]}
+                },
+                "required": ["reported", "number"],
+                "additionalProperties": false
+              },
+              "police": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]}
+                },
+                "required": ["reported", "number"],
+                "additionalProperties": false
+              },
+              "others": {
+                "type": "object",
+                "properties": {
+                  "reported": {"type": "boolean"},
+                  "number": {"type": ["integer", "string", "null"]},
+                  "who": {"type": ["string", "null"]}
+                },
+                "required": ["reported", "number", "who"],
+                "additionalProperties": false
+              }
+            },
+            "required": ["protesters", "bystanders", "police", "others"],
+            "additionalProperties": false
+          },
+          "sentiment": {
+            "type": "string",
+            "enum": ["positive", "neutral", "negative"]
+          },
+          "keywords": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        },
+        "required": [
+          "is_protest", "event_date", "number_of_days", "locations",
+          "protest_size_estimates", "main_issue", "topics", "protest_slogan",
+          "target", "organizations", "participant_demographics",
+          "counterprotestors", "police", "arrests", "protester_violence",
+          "property_damage", "injuries", "deaths", "sentiment", "keywords"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["protests"],
+  "additionalProperties": false
+}
