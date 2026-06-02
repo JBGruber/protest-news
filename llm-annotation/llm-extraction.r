@@ -37,7 +37,9 @@ annotation_candidates <- query_documents(
   mutate(
     fulltext = glue::glue(
       "Title: {title} (published {as.Date(datetime)})\n\n{text})"
-    )
+    ),
+    # very long texts can't be processed and are usuallylive tickers
+    fulltext = str_sub(fulltext, end = 20000)
   )
 
 if (nrow(annotation_candidates) > 0) {
@@ -215,7 +217,7 @@ if (nrow(annotation_candidates) > 0) {
   update_documents(index = "de-news", documents = articles_annotated_parsed)
 
   cli::cli_alert_success(
-    "{nrow(articles_annotated_parsed)} documents updated [{nrow(articles_annotated)} - {nrow(articles_annotated_parsed)} failed]."
+    "{nrow(articles_annotated_parsed)} documents updated [{nrow(articles_annotated) - nrow(articles_annotated_parsed)} failed]."
   )
 } else {
   # if there are no documents to process, wait for 10 minutes
