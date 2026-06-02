@@ -84,7 +84,8 @@ unread_entries <- tbl(con, "freshrss_admin_entry") |>
   collect() |>
   mutate(
     date = as.POSIXct(date, origin = "1970-01-01"),
-    modified = as.POSIXct(modified, origin = "1970-01-01")
+    modified = as.POSIXct(modified, origin = "1970-01-01"),
+    hydrated = FALSE
   )
 
 # 2. filter protest articles
