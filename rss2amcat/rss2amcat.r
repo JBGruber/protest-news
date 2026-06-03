@@ -29,7 +29,23 @@ if (!"de-news" %in% list_indexes()$id) {
     text = "text",
     hydrated = "boolean",
     annotated = "keyword",
-    annotation_json = "object"
+    annotation_json = "object",
+    is_protest = "keyword",
+    event_date = "date",
+    location = "keyword",
+    main_issue = "text",
+    topic = "keyword",
+    sentiment = "keyword",
+    number_of_days = "integer",
+    protest_size_numeric = "integer",
+    protest_size_text = "keyword",
+    target = "keyword",
+    organizations = "keyword",
+    arrests_reported = "keyword",
+    police_present = "keyword",
+    counterprotestors_reported = "keyword",
+    protester_violence_reported = "keyword",
+    keywords = "keyword"
   )
   create_index(
     index = "de-news",
@@ -50,7 +66,23 @@ if (!"de-news" %in% list_indexes()$id) {
       text = list(access = "snippet", max_snippet = list(nomatch_chars = 50)),
       hydrated = list(access = "read"),
       annotated = list(access = "read"),
-      annotation_json = list(access = "read")
+      annotation_json = list(access = "read"),
+      is_protest = list(access = "read"),
+      event_date = list(access = "read"),
+      location = list(access = "read"),
+      main_issue = list(access = "read"),
+      topic = list(access = "read"),
+      sentiment = list(access = "read"),
+      number_of_days = list(access = "read"),
+      protest_size_numeric = list(access = "read"),
+      protest_size_text = list(access = "read"),
+      target = list(access = "read"),
+      organizations = list(access = "read"),
+      arrests_reported = list(access = "read"),
+      police_present = list(access = "read"),
+      counterprotestors_reported = list(access = "read"),
+      protester_violence_reported = list(access = "read"),
+      keywords = list(access = "read")
     )
   )
   # get_fields("de-news")
