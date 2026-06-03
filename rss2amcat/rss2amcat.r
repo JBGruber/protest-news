@@ -45,7 +45,8 @@ if (!"de-news" %in% list_indexes()$id) {
     police_present = "keyword",
     counterprotestors_reported = "keyword",
     protester_violence_reported = "keyword",
-    keywords = "keyword"
+    keywords = "keyword",
+    hydration_attempts = "integer"
   )
   create_index(
     index = "de-news",

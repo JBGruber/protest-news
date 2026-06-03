@@ -19,9 +19,42 @@ amcat_login(
 
 unhydrated <- query_documents(
   "de-news",
-  fields = c(".id", "url", "hydrated"),
-  filters = list("hydrated" = "false")
+  fields = c(".id", "url", "hydrated", "hydration_attempts"),
+  filters = list(
+    hydrated = list(exists = FALSE)
+  ),
+  verbose = FALSE
 )
+
+unhydrated_fails <- query_documents(
+  "de-news",
+  fields = c(".id", "url", "hydrated", "hydration_attempts"),
+  filters = list(
+    hydrated = "false",
+    hydration_attempts = list(lt = 3L)
+  ),
+  verbose = FALSE
+)
+
+if (nrow(unhydrated) > 0 & nrow(unhydrated_fails) > 0) {
+  unhydrated <- bind_rows(unhydrated, unhydrated_fails)
+}
+
+cli::cli_alert_info("Retrieved {nrow(unhydrated)} new documents")
+
+if (!"hydration_attempts" %in% colnames(unhydrated)) {
+  unhydrated <- mutate(unhydrated, hydration_attempts = 0)
+}
+
+unhydrated <- unhydrated |>
+  mutate(
+    hydration_attempts = ifelse(
+      is.na(hydration_attempts),
+      0L,
+      hydration_attempts
+    )
+  )
+
 
 if (nrow(unhydrated) > 0) {
   pak::pak("JBGruber/paperboy")
@@ -38,8 +71,11 @@ if (nrow(unhydrated) > 0) {
       status == 200L,
       !is.na(datetime),
       nchar(headline) > 1L,
-      nchar(text) > 25L
+      # this doesn't quite work as many articles have no text
+      # (paywall, video or audio conten) clogging up the pipeline
+      # nchar(text) > 25L
     ) |>
+    mutate(text = ifelse(text == "", "[could not be hydrated]", text)) |>
     left_join(unhydrated, by = "url") |>
     mutate(hydrated = TRUE) |>
     select(
@@ -56,6 +92,14 @@ if (nrow(unhydrated) > 0) {
 
   # 4. update in place
   update_documents("de-news", documents = processed_entries)
+
+  # 5. set hydration counter for failed documents
+  processed_entries_failed <- unhydrated |>
+    filter(!.id %in% processed_entries$.id) |>
+    mutate(hydration_attempts = hydration_attempts + 1)
+
+  update_documents("de-news", documents = processed_entries_failed)
+
   cli::cli_alert_success("Hydrated {nrow(processed_entries)} documents")
 } else {
   # if there are no documents to process, wait for 10 minutes
