@@ -1,7 +1,7 @@
-# Protest News Databas
+# Protest News Database
 ## Motivation
 
-Datasets of protest events are of great value when studying movements or the reactions they evoke in media a politics.
+Datasets of protest events are of great value when studying movements or the reactions they evoke in media and politics.
 This repo is the attempt to combine different open source tools in a pipeline that combines web-scraping and AI-based data extraction.
 
 ![Pipeline](pipeline.svg)
@@ -9,7 +9,7 @@ This repo is the attempt to combine different open source tools in a pipeline th
 In words, the pipeline consists of these parts (in the order in which information enters the database):
 
 1. [FreshRSS](https://freshrss.org/) collects articles published in one of 71 German newspapers (currently) 
-1.5. Articles are filtered for protest news and copied from the FreshRSS databse to the [AmCAT](https://amcat.nl/) database
+1.5. Articles are filtered for protest news and copied from the FreshRSS database to the [AmCAT](https://amcat.nl/) database
 2. [paperboy](https://jbgruber.github.io/paperboy/) scrapes full texts of the articles
 3. Using an LLM (currently [qwen3.5:9b](https://huggingface.co/Qwen/Qwen3.5-9B)) via [rollama](https://jbgruber.github.io/rollama/) we extract structured information
 
