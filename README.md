@@ -1,16 +1,33 @@
-## Protest News
+# Protest News Databas
+## Motivation
 
-1. Pull RSS from News sites that are supported by paperboy via
-freshrss
-2. Copy News articles to AmCAT
-3. Container running paperboy checks out unpopulated articles and fetches full texts and updates AmCAT entries
-4. Container running rollama annotates full texts and update AmCAT entries
+Datasets of protest events are of great value when studying movements or the reactions they evoke in media a politics.
+This repo is the attempt to combine different open source tools in a pipeline that combines web-scraping and AI-based data extraction.
 
-## Setup
+![Pipeline](pipeline.svg)
+
+In words, the pipeline consists of these parts (in the order in which information enters the database):
+
+1. [FreshRSS](https://freshrss.org/) collects articles published in one of 71 German newspapers (currently) 
+1.5. Articles are filtered for protest news and copied from the FreshRSS databse to the [AmCAT](https://amcat.nl/) database
+2. [paperboy](https://jbgruber.github.io/paperboy/) scrapes full texts of the articles
+3. Using an LLM (currently [qwen3.5:9b](https://huggingface.co/Qwen/Qwen3.5-9B)) via [rollama](https://jbgruber.github.io/rollama/) we extract structured information
+
+The dataset (except for the full texts of the articles) is available at <https://protest.jbgruber.online/projects/de-news>{target="_blank"}.
+
+## Running it yourself
 
 1. Clone this repo
-2. Create directories to store data (you can move these wherever you want, but they need to match the `docker-compose.yml`)b
+2. Create directories to store data (you can move these wherever you want, but they need to match the `docker-compose.yml`):
 
 ```bash
 mkdir -p ./data/{freshrss-app,freshrss-extensions,freshrss-db,elastic-amcat4,elastic-amcat4-snapshots}
 ```
+
+3. Make sure you have Ollama running (see e.g., <https://jbgruber.github.io/rollama/#installation>)
+4. Spin up the full stack via `docker compose up -d`
+
+
+This runs all parts on a single computer.
+It is also possible to run, for example, the LLM part elsewhere.
+
