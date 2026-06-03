@@ -38,6 +38,9 @@ services:
     restart: unless-stopped
     networks:
       - protest-db-net
+    # Todo: close ports when debugging is done
+    ports:
+      - "5432:5432"
     logging:
       options:
         max-size: 10m
@@ -48,7 +51,7 @@ services:
       POSTGRES_USER: ${DB_USER:-freshrss}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-freshrss}
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-freshrss}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-freshrss} -d ${POSTGRES_DB:-freshrss-db}"]
       interval: 5s
       timeout: 5s
       retries: 10
