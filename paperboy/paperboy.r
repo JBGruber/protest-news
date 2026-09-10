@@ -21,7 +21,8 @@ unhydrated <- query_documents(
   "de-news",
   fields = c(".id", "url", "hydrated", "hydration_attempts"),
   filters = list(
-    hydrated = list(exists = FALSE)
+    hydrated = list(exists = FALSE),
+    hydration_attempts = list(exists = FALSE)
   ),
   verbose = FALSE
 )

@@ -1,0 +1,793 @@
+---
+title: "Protest Event Coding"
+subtitle: "Codebook for human annotators — validation study"
+author: "Johannes B. Gruber (GESIS)"
+date: last-modified
+lang: en
+format:
+  docx:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    highlight-style: github
+---
+
+# What this is about
+
+We are building an open database of protest events in Germany.
+A pipeline collects articles from around 74 German news outlets, keeps those that
+mention *Protest* or *Demonstration*, downloads the full text, and then has a
+**locally running language model** read each article and fill in a structured set
+of variables (where, when, who, how many, what about, what happened).
+The result feeds a public dashboard for researchers, journalists and the public.
+
+That is all you need to know about the project. What matters for your work is the
+next paragraph.
+
+## Why we need you
+
+We do not know how good the machine annotation actually is. To find out, we need a
+**gold standard**: the same articles, coded carefully by humans. Your annotations
+are that gold standard. We compare them against the machine output to estimate
+precision and recall for every variable, and we compare coders against each other
+to check that the coding scheme itself is reliable.
+
+This has three consequences for how you should work:
+
+* **Code independently.** Do not discuss individual articles with other coders
+  while you are coding them. If a *general* rule is unclear, ask the project lead —
+  the answer will be shared with everyone.
+* **Do not guess what the machine would say.** You are not correcting the model,
+  you are coding the article. You will never see the model's output.
+* **Consistency beats speed.** A field that is filled in the same way by everyone
+  is worth more than a field that is filled in quickly.
+
+::: {.callout-important}
+The sample was drawn with a **keyword filter**. Many articles mention "Protest" or
+"Demonstration" without describing a protest event at all. In the pilot round,
+roughly **half** of all articles contained no protest. Coding an article as "no
+protest" is a real and valuable result, not a failure to find something.
+:::
+
+# What you will do
+
+The project contains **250 news articles**. For each article you:
+
+1. decide whether it describes at least one protest event;
+2. if it does, describe each protest event using the form on the right-hand side
+   of the screen;
+3. submit and move on to the next article.
+
+An article with no protest takes well under a minute. A long article about a
+nationwide day of action with several crowd estimates can take fifteen. Both are
+normal.
+
+Unless you are told otherwise, work through the articles in the order Label Studio
+presents them, and do not skip ahead — all coders start at the top of the same
+queue so that our articles overlap.
+
+# Getting started
+
+## Access
+
+<!-- Server address and invitation link are inserted here. -->
+
+*The server address and your personal invitation link are given separately.*
+
+Open the link in a normal browser (Firefox or Chrome), create an account with your
+work e-mail address and pick a password. You will land on the project overview.
+
+## Opening the annotation job
+
+You should see a single project called **`protest_validation`**. Do **not** click
+on the project name itself — that opens the data browser. Instead:
+
+1. click the **`...`** menu at the right edge of the project card;
+2. choose **Label**.
+
+![Opening the annotation job from the project overview](select.png){width=6in}
+
+The two numbers under the project name (`11 / 250` in the screenshot) show how many
+articles have been annotated in total, by everybody.
+
+## The annotation screen
+
+![The annotation interface. Left: the article. Right: the form.](label.png){width=6.5in}
+
+The screen has two halves:
+
+**Left — the article.** Headline, publication date, and the full article text.
+This is everything you are allowed to use. Very long articles (live tickers, for
+example) are cut off after 20,000 characters, so a text may end mid-sentence.
+Code what is in front of you and mention the truncation in the notes if it matters.
+
+**Right — the form.** At first you only see *Step 1* and the *Annotator Notes*
+box. As soon as you answer Step 1 with "Yes / Possibly", the form for **Protest 1**
+appears below it. Further protest blocks appear only when you ask for them
+(see @sec-more).
+
+**Bottom bar.** Left to right: the article ID and your position in the queue
+(`12 of 12`), arrows to move between articles, undo / redo / reset for the current
+form, and the **Skip** and **Submit** buttons.
+
+::: {.callout-warning}
+## The single most common mistake
+
+Free-text boxes are **not** saved by simply typing in them. After typing you must
+press **Shift + Enter** or click the **Add** button next to the box. The text then
+appears as a small entry underneath the box. If you type and hit *Submit*
+straight away, **the text is lost**.
+
+Checkboxes and radio buttons do not have this problem — they are stored as soon as
+you click them.
+:::
+
+## Saving, skipping, stopping
+
+* **Submit** stores the annotation for the current article and loads the next one.
+  There is no separate save button — everything is stored per article on submit.
+* You can stop at any time and continue later. Submitted articles stay submitted.
+* Use the arrows at the bottom left to go back to an article you have already
+  submitted; change what you need and submit again.
+* **Skip** only for technically broken articles: empty text, a paywall stub with
+  two sentences of teaser, an error page, or a text in a language you cannot read.
+  Write one line in the notes before skipping.
+* Do **not** use Skip for articles that simply contain no protest. Those get
+  `has_protest = no` and a Submit.
+
+# The rules that apply everywhere {#sec-rules}
+
+These seven rules resolve most of the questions that come up.
+
+1. **Only the article counts.** Code what this text says. Do not use your own
+   knowledge about the event, do not look it up. If the article does not say how 
+   many people came, we do not know how many people came. Geographical common 
+   knowledge is the one exception: you may fill in that Köln is in 
+   Nordrhein-Westfalen.
+
+2. **Answer every yes/no question.** A blank field is not the same as "No" — for
+   us it is missing data and it damages the statistics. Every coloured yes/no block
+   in the form must have an answer before you submit.
+
+3. **"No" means "the article does not report it."** For counter-protestors,
+   arrests, protester violence, property damage, injuries and deaths, tick **No**
+   both when the article states that it did not happen *and* when the article is
+   silent about it. **Police is the only exception**: it has a separate
+   *Not reported* option.
+
+4. **Do not infer, do not embellish.** "Die Polizei war im Einsatz" does not tell
+   you that there were arrests. A demonstration organized by a trade union does
+   not tell you that the participants were trade union members.
+
+5. **Write content fields in German**, close to the wording of the article. The
+   form labels are English, the content is not. `main_issue`, `target`, slogans,
+   organizations, demographics and keywords are German.
+
+6. **Quotes are verbatim.** Where a field asks for a citation, copy and paste from
+   the article. Do not paraphrase, do not fix typos, do not translate.
+
+7. **When in doubt, say so.** Use `unsure` where the form offers it, and write a
+   sentence in the *Annotator Notes*. A flagged uncertainty is useful to us; a
+   confident guess is not.
+
+# Step 1: Does this article describe a protest? {#sec-step1}
+
+This is the only mandatory question on the form and it is asked at the level of the
+**whole article**.
+
+* **Yes / Possibly — code protest(s) below** — the article describes at least one
+  protest event, or something that might be one.
+* **No protest event described** — it does not.
+
+## What we mean by a protest
+
+> A **protest event** is a *public*, *collective* action by *non-state actors* that
+> voices a grievance, a demand, or support for a cause, addressed to an audience or
+> a target beyond the participants themselves.
+
+All four elements have to be present:
+
+| Element | Means | Fails when |
+|----|--------|--------|
+| **Collective** | More than one person acting together | A single person acting alone |
+| **Public** | In public space, or publicly visible and directed at a public | A closed internal meeting, a private dispute |
+| **Claim-making** | Expresses a demand, grievance, criticism or support | A crowd with no message: a concert, a festival, a football match |
+| **An event** | Something that happened, is happening, or is announced for a specific date and place | A general mood, an attitude, an intention |
+
+## Counts as a protest
+
+Demonstration, Kundgebung, Protestmarsch, Demonstrationszug, Mahnwache, Vigil,
+Menschenkette, Sitzblockade, Blockade, Besetzung, Protestcamp, Streik, Warnstreik,
+Arbeitsniederlegung, Tarifstreik, Hungerstreik (collective), Straßenblockade,
+Traktorenkorso and other Korso-Aktionen, Störaktion at a public event, Banner- and
+Transparentaktion, Flashmob with a political message, Autokorso, Fahrraddemo,
+Montagsspaziergang, Kirchenasyl-Aktion, publicly staged handover of a petition
+with a gathering, riots that grow out of a demonstration, fan protests in or
+around a stadium with banners or chants directed at a target.
+
+Protests **anywhere in the world** count, not only in Germany. There is a country
+field for exactly that reason.
+
+## Does not count as a protest
+
+* **Verbal or written objection without a gathering**: a politician who
+  "protestiert gegen" something, a Protestnote, a Protestbrief, an open letter, a
+  press statement, a party resolution, a legal Einspruch or Widerspruch, a
+  complaint to a broadcaster.
+* **Online-only activity**: a hashtag, a shitstorm, an online petition, a boycott
+  call on social media with no physical action.
+* **Elections and votes** described as protest: "Protestwahl", "Denkzettel für die
+  Regierung", protest votes in a parliament.
+* **Crowds without a claim**: concerts, festivals, Volksfeste, sporting events,
+  Gedenkveranstaltungen and Trauerfeiern, religious processions, parades,
+  celebrations, party conferences, press conferences, trade fairs.
+* **Violence without a protest**: terror attacks, drone strikes, war reporting,
+  riots between hooligans, looting, arson attacks, Anschläge. A military strike is
+  not a protest, however loudly it is condemned.
+* **State action**: police raids, evictions carried out by authorities, court
+  decisions, deportations — unless people protest against them, in which case the
+  protest is the event.
+* **Passing mentions with no substance**: an article about pension reform that
+  ends with "immer wieder gab es Proteste" and gives no event, no date, no place
+  and no participants.
+
+## Awkward cases and how to handle them
+
+| Case | Decision |
+|-------|----------|
+| Article reports a protest **announced for next Saturday**, with place and date | Yes. Enter the announced date as the event date and add a note |
+| A vague call to mobilize, no date, no place | Yes / Possibly, `is_protest = unsure`, plus a note |
+| A **historical** protest (1989, 1968) reported as a feature | Yes / Possibly, code it, and add a note that the event is historical |
+| A historical protest mentioned only as background | No |
+| A **single person** chained to a fence, one lone hunger striker | Yes / Possibly, `is_protest = unsure` |
+| **Booing and whistling** at a politician's speech | Yes / Possibly, `is_protest = unsure` |
+| Fans display a banner against their club's management | Yes |
+| A **strike** or Warnstreik | Yes — strikes are protests for this project |
+| An **AfD or right-wing extremist** rally | Yes. Who protests is irrelevant to whether it is a protest |
+| A **counter-demonstration** | Yes, but usually *not* as a separate protest — see @sec-units |
+| A protest inside another country's parliament | Yes / Possibly, `unsure` — these are rarely non-state actors in public space |
+| The article is a **commentary** about protests in general | No, unless a concrete event is described |
+
+: Frequent borderline cases {tbl-colwidths="[55,45]"}
+
+If you tick "No protest event described", you are done with the article. Submit.
+
+# One protest, or several? {#sec-units}
+
+This decision shapes everything that follows, and it is the one coders could easily 
+disagree about. The unit of analysis is the **protest event**, not the article
+and not the city.
+
+::: {.callout-note}
+## The rule
+
+Simultaneous actions by the **same organizers** about the **same issue** on the
+**same date** are **one protest**, even if they take place in twelve different
+cities. List all the cities in the *Locations* field.
+
+Open a **new protest block** only when events differ in at least one of:
+**date**, **organizing group**, or **central issue**.
+:::
+
+Worked through:
+
+| Situation | How to code |
+|--------|--------|
+| Nationwide climate strike, Fridays for Future, 12 cities, one Friday | **One** protest, 12 lines in *Locations* |
+| Same union strikes on Monday in Köln and on Wednesday in Bonn | **Two** protests (different dates) |
+| A demonstration and a Gegendemo, same day, same place | **One** protest. The Gegendemo goes into the *Counter-Protestors* field, not into its own block |
+| A protest camp that has lasted five days | **One** protest, *Number of Days* = 5 |
+| A weekly Monday demo; the article reports on this week's | **One** protest — this week's |
+| Two marches on the same day in Berlin, one against the AfD, one about rents | **Two** protests (different issues) |
+| A "wave of protests" across the country with no concrete events described | Code the ones that have details; describe the rest in the notes |
+| An article that reports on more than five distinct protests | Code the five that get the most attention in the article and describe the others in the notes |
+
+When you genuinely cannot tell whether an article describes one event in several
+places or several separate events, treat it as **one** protest and write a note.
+
+# Coding a protest: the fields one by one
+
+Everything below is repeated identically for Protest 1 to Protest 5. Only the
+first block is described here.
+
+## Is this a protest? (`is_protest`)
+
+Repeats the Step 1 judgement for *this specific event*.
+
+* **yes** — a clear demonstration, march, rally, strike, blockade or occupation.
+* **unsure** — an ambiguous event: a disruption at a public meeting, a spontaneous
+  gathering with no obvious protest character, a lone actor, a fan action, a crowd
+  whose demand you cannot identify.
+
+Both answers keep the protest in the data. `unsure` is a quality flag, not a
+rejection.
+
+## Event Date (`event_date`)
+
+Format **YYYY-MM-DD**, e.g. `2024-09-20`. Derive it from the publication date shown
+in the article panel plus the temporal expressions in the text.
+
+| The article says (published Fri 2025-11-15) | Enter |
+|--------|--------|
+| "gestern" | 2025-11-14 |
+| "am Donnerstag" (past tense) | 2025-11-13 |
+| "heute" / "am Freitag" | 2025-11-15 |
+| "am kommenden Samstag" | 2025-11-16 |
+| "am Wochenende" (past tense) | 2025-11-09 — use the **Saturday** |
+| "seit Montag" for an ongoing event | 2025-11-10 — the **first** day |
+| "im vergangenen Sommer", no more detail | leave blank, add a note |
+
+For a multi-day event, always enter the **first** day. If the date cannot be
+derived at all, leave the field empty rather than guessing.
+
+## Number of Days (`num_days`)
+
+How many days the event lasts, as reported. `1` for an ordinary demonstration.
+For an event that is still running when the article appears, enter the number of
+days it has lasted **so far** according to the article, and add a note.
+
+## Locations (`locations`)
+
+One line per city, four fields separated by the pipe character `|`:
+
+```
+Venue | City | Bundesland | Country
+```
+
+Use a single hyphen `-` when a part is not given. Write the Bundesland out in full
+and in German. For places outside Germany, use the region, state or province if the
+article names one, `-` otherwise, and give the country in German.
+
+```
+Bahnhofsvorplatz | Köln | Nordrhein-Westfalen | Deutschland
+Brandenburger Tor | Berlin | Berlin | Deutschland
+- | Hamburg | Hamburg | Deutschland
+Trafalgar Square | London | England | Vereinigtes Königreich
+```
+
+The venue is the specific square, street, building or institution the protest took
+place at or in front of: *Bahnhofsvorplatz*, *Rathausmarkt*, *vor dem Kanzleramt*,
+*Werkstor von VW*. Leave it as `-` if only the city is named.
+
+List **every** city mentioned as a site of this protest, including those with no
+further detail.
+
+## Protest Size Estimates (`size_estimates`)
+
+This is the single most important field in the study, and the one that most often
+gets under-filled. The project estimates the *true* size of protests from the
+disagreement between sources, so we need **every number, with its source, kept
+apart from every other number**.
+
+One line per estimate, five fields separated by `|`:
+
+```
+source_type | verbatim text | conservative number | source name or - | city or -
+```
+
+**`source_type`** is one of exactly these six values:
+
+| Value | Use when the number comes from |
+|-------|-------|
+| `organizers` | The organizing group, Veranstalter, Anmelder, a union calling the strike |
+| `police` | The police, Polizei, Polizeisprecher |
+| `media` | The reporting outlet itself or another named news organization ("nach Zählung unseres Reporters") |
+| `other` | A named third party: city administration, researchers, a counting initiative, a company |
+| `unattributed` | No source at all: "Rund 2000 Menschen versammelten sich" |
+| `unclear` | A source is implied but cannot be identified: "Beobachter sprachen von" |
+
+**`verbatim text`** is the number exactly as printed, including German formatting
+and vagueness: `15.000`, `rund 2000`, `Hunderte`, `mehr als zehntausend`.
+
+**`conservative number`** turns that into a plain integer, always erring on the low
+side:
+
+| Wording | Number |
+|-------|------|
+| (ein paar / mehrere) Dutzend, Dutzende | 24 |
+| Hunderte, mehrere Hundert | 200 |
+| Tausende, mehrere Tausend | 2000 |
+| Zehntausende | 20000 |
+| Hunderttausende | 200000 |
+| rund / etwa / ca. / knapp 2000 | 2000 |
+| mehr als 2000 | 2000 |
+| 2000 bis 3000 | 2000 (the lower bound) |
+| eine dreistellige Zahl | 100 |
+| no number given, only "viele" | leave the line out entirely |
+
+**`source name`** names the concrete source where the article does: `Polizei Berlin`,
+`Fridays for Future`, `ver.di`, `Stadt München`. Use `-` if it is not named.
+
+**`city`** is the city this particular number refers to. Use `-` when the number
+covers the whole event across all cities.
+
+Example, for an article reporting a nationwide strike:
+
+```
+police | 15.000 | 15000 | Polizei Berlin | Berlin
+organizers | 10.000 | 10000 | Fridays for Future | Hamburg
+unattributed | Zehntausende | 20000 | - | -
+```
+
+Note what happened there: the police figure for Berlin, the organizers' figure for
+Hamburg, and the overall figure are **three separate lines**. Never merge them,
+never average them, and never drop a number because another one contradicts it.
+The contradictions are our data.
+
+## Main Issue (`main_issue`)
+
+One short German phrase naming the central demand or grievance — not a summary of
+the article and not a summary of the event.
+
+* Good: `Klimagerechtigkeit und Einhaltung des Pariser Abkommens`
+* Good: `Höhere Löhne im öffentlichen Dienst`
+* Good: `Gegen die Abschiebung einer Familie aus Wuppertal`
+* Bad: `Eine Demonstration in Köln mit 2000 Teilnehmern`
+
+## Topics, Primary Topic and Citations
+
+**Topics** is a multiple-choice list: tick every topic that the article makes
+*clearly* relevant to this protest. Do not tick topics that are only implied or
+tangential — if the connection needs an argument, leave it out.
+
+**Which topic is primary?** Pick exactly one, the central issue of the protest. It
+must be one of the topics you ticked above.
+
+**Citations**: paste one or two verbatim sentences from the article that justify
+your choice.
+
+| Topic | Covers |
+|-----|------|
+| Climate & Environment | Climate policy, emissions, coal and lignite, forests, pollution, nature and animal protection, transport policy when framed ecologically |
+| Social Justice | General fairness and solidarity demands, poverty, welfare benefits, pensions, when not primarily about wages |
+| Racism / Discrimination | Racism, antisemitism, anti-Muslim racism, hostility to Roma and Sinti, discrimination against minorities or disabled people |
+| Anti-Right-Wing Extremism | Protests *against* the far right: "Demo gegen Rechts", against the AfD, against neo-Nazi marches |
+| Right-Wing Extremism | Protests organized *by* far-right actors: neo-Nazi marches, Pegida, far-right rallies |
+| Gender / Feminism | Women's rights, gender equality, abortion, sexualized violence, equal pay |
+| LGBTQ+ Rights | Queer rights, CSD and Pride, trans rights, and mobilization against them |
+| Immigration / Asylum | Refugees, deportations, migration policy — both restrictive and welcoming positions |
+| War / Peace | Wars and armed conflicts, arms deliveries, Ukraine, Israel and Gaza, Bundeswehr, conscription, peace demonstrations |
+| Economic Inequality | Distribution of wealth, taxation of the rich, cost of living, inflation, subsidies |
+| Labor / Workers' Rights | Strikes, Tarifrunden, wages, working conditions, layoffs, plant closures |
+| Housing | Rents, evictions, housing shortage, Mietendeckel, squatting |
+| Education | Schools, universities, tuition, teacher shortage, education funding |
+| Healthcare | Hospitals and clinic closures, Pflege, health insurance, medical supply |
+| Digital / Privacy | Surveillance, data protection, Chatkontrolle, AI regulation, net policy |
+| EU Politics | EU-level policy and institutions, EU accession, European elections |
+| Energy Policy | Energy prices, nuclear power, wind and solar infrastructure, Heizungsgesetz, pipelines — where the framing is supply and price rather than climate |
+| COVID / Health Policy | Pandemic measures, vaccination mandates, Querdenken |
+| East-West Issues | East–West German inequality, grievances specific to Ostdeutschland |
+| Other | Anything genuinely not covered above. Use sparingly and make the Main Issue precise |
+
+: The twenty topics
+
+Recurring German cases, so that we all treat them the same way:
+
+* **Bauernproteste** against subsidy and diesel-tax cuts → primary
+  *Economic Inequality*; add *Climate & Environment* only if the article frames it
+  that way.
+* **Tarifrunde im ÖPNV** → primary *Labor / Workers' Rights*; add
+  *Climate & Environment* when the article mentions a climate alliance.
+* **Demo gegen Rechts** after a far-right scandal → primary
+  *Anti-Right-Wing Extremism*; *Racism / Discrimination* often secondary.
+* **Pro-Palestinian or pro-Israel demonstrations** → primary *War / Peace*;
+  *Racism / Discrimination* secondary if antisemitism or anti-Muslim racism is a
+  theme in the article.
+* **Anti-windfarm protests by local residents** → primary *Energy Policy*.
+
+## Protest Slogan (`slogan`)
+
+The motto of the protest as printed: `"Wir sind die Brandmauer"`,
+`"Nie wieder ist jetzt"`, `"Hände weg vom Wedding"`. Leave the field **blank** if
+the article does not quote one. The name of the organizing group is not a slogan.
+
+## Target (`target`)
+
+Who or what the protest is directed at, in German: `Bundesregierung`, `AfD`,
+`Landesregierung Sachsen`, `Deutsche Bahn`, `Tesla`, `Israelische Regierung`,
+`Heizungsgesetz`. For a protest *in favour of* something, name the addressee of the
+demand. Leave blank if the article gives you no target.
+
+## Organizing Groups (`organizations`)
+
+One per line, named as the article names them. Include groups described as having
+called for the protest ("hatte zu der Demonstration aufgerufen") and members of a
+named alliance. Do not include parties or organizations that are merely mentioned
+in passing, and do not include the target. Leave blank if no organizer is named.
+
+```
+Fridays for Future
+ver.di
+Bündnis "Zusammen gegen Rechts"
+```
+
+## Participant Demographics (`demographics`)
+
+Groups the article explicitly describes among the participants, one per line, in
+German: `Studierende`, `Landwirte`, `Beschäftigte der Charité`,
+`Familien mit Kindern`, `Rentnerinnen und Rentner`, `Schülerinnen und Schüler`.
+
+Only what is stated. That a union organized the strike does not license
+`Gewerkschaftsmitglieder`. If the article says nothing, leave it blank.
+
+## Counter-Protestors
+
+**Reported? Yes / No.** Yes if the article reports an opposing gathering,
+Gegendemo, or Gegenkundgebung connected to this protest, including hecklers
+described as an organized counter-presence. In the details box: who they were and
+how many, as far as the article says.
+
+Remember: a counter-demonstration belongs **here**, not in its own protest block.
+
+## Police
+
+The only three-way field on the form.
+
+* **Present** — police are described as being at the event in any capacity:
+  securing it, escorting the march, standing by, intervening, being attacked. By
+  convention we also code **Present** when the article quotes the police *about
+  this event* ("laut Polizei kamen 15.000"), since that implies officers on site.
+* **Not present** — the article states that no police were there, or that police
+  stayed away.
+* **Not reported** — the article does not mention the police at all. This is the
+  most common answer.
+
+The details box takes anything **beyond mere presence**: Absperrungen,
+Platzverweise, Ingewahrsamnahmen, Räumung, Wasserwerfer, Pfefferspray,
+Schlagstockeinsatz, Kessel — and any police violence the article describes.
+
+## Arrests
+
+**Reported? Yes / No**, plus the number. *Festnahmen*, *vorläufige Festnahmen* and
+*Ingewahrsamnahmen* all count. Enter the figure if the article gives one, or
+`unknown` if arrests are reported without a number.
+
+## Protester Violence
+
+**Reported? Yes / No**, plus a type code if yes. Violence carried out **by
+protesters** — not violence against them.
+
+The three components:
+
+* **Weapons** — weapons or objects used as weapons against people: Messer,
+  Schusswaffen, Steine, Flaschen, Feuerwerkskörper, Pyrotechnik.
+* **Physical** — bodily force against people without weapons: Schläge, Tritte,
+  Rangeleien, Durchbrechen einer Polizeikette, Widerstand gegen Festnahmen.
+* **Other** — other violent acts: Brandstiftung, Vandalismus, throwing objects at
+  buildings or vehicles rather than at people.
+
+| Code | Meaning |
+|---|---|
+| 1 | Weapons only |
+| 2 | Physical assault only |
+| 3 | Other violence only |
+| 4 | Weapons + Physical |
+| 5 | Weapons + Other |
+| 6 | Physical + Other |
+| 7 | Weapons + Physical + Other |
+
+A peaceful blockade or a sit-in is **not** violence, even where it is illegal.
+Shouting, insults and provocation are **not** violence. If the article says the
+protest was "weitgehend friedlich" but reports isolated incidents, the answer is
+still **Yes**.
+
+## Property Damage
+
+**Reported? Yes / No**, plus the amount in euros or `unknown`. Broken windows,
+graffiti, damaged cars, damaged police vehicles, destroyed fences, damage to a
+building being occupied.
+
+## Injuries
+
+Four separate questions — **Protesters**, **Bystanders**, **Police**, **Others** —
+each Yes / No plus a number. Enter `unknown` when injuries are reported without a
+figure. For *Others*, also fill the "who" box: `Journalisten`, `Sanitäter`,
+`Ordner`.
+
+Remember rule 3: if the article says nothing about injuries, all four are **No**.
+
+## Deaths
+
+Structured exactly like Injuries, for deaths. Almost always four times **No**.
+
+## Sentiment
+
+How the **article frames** this protest. Not your own view of the protest, not the
+mood among the participants, not the tone of the quotes.
+
+* **Positive (sympathetic)** — the reporting is on the side of the protest: the
+  demands are presented as legitimate, the size and peacefulness are stressed,
+  protesters speak and critics do not, descriptive language is warm.
+* **Neutral (factual)** — plain reporting: what happened, where, how many, who
+  said what, both sides quoted, no evaluative language.
+* **Negative (dismissive/threatening)** — the protest is framed as a problem: the
+  emphasis is on disruption, chaos, violence, extremism or radicalism, the
+  protesters are portrayed as a fringe or a danger, critics dominate the quotes,
+  the demands are treated as unreasonable.
+
+Most news articles are **neutral**. Reserve positive and negative for a clear tilt
+you could point at in the text. Commentaries and opinion pieces are the usual place
+where a tilt is unmistakable.
+
+## Keywords
+
+Three to seven comma-separated German keywords for search on the dashboard:
+movement, issue, place, main actors.
+
+```
+Klimastreik, Fridays for Future, Berlin, Pariser Abkommen
+```
+
+# Adding further protests {#sec-more}
+
+Beneath Protest 1 there is a dashed box with a checkbox:
+
+> **+ This article contains a second distinct protest event**
+
+Tick it and the Protest 2 block appears, in a different colour, with exactly the
+same fields. The same pattern repeats up to **Protest 5**.
+
+Before ticking, re-read @sec-units — most articles that look like several protests
+are one protest in several cities.
+
+::: {.callout-warning}
+If you tick the box by mistake, **clear the fields you already filled in the block
+before you untick it**. Hiding a block does not necessarily delete what you entered
+in it.
+:::
+
+For an article with more than five distinct protests, code the five that the
+article treats most fully and describe the rest in the notes.
+
+# Annotator Notes
+
+The purple box at the bottom is always available and always optional. Use it for:
+
+* uncertainties and how you resolved them;
+* the flags this codebook asks for: announced future events, historical events,
+  ambiguous one-vs-several decisions, truncated text;
+* more than five protests in one article;
+* anything about the article that the form cannot express;
+* cases where you think the coding scheme itself is wrong.
+
+Write in German or English, whichever is faster for you. One sentence is enough.
+
+# Two worked examples
+
+## Example 1 — a single-city protest
+
+**Article** (published 2025-11-15), headline *Klimademo in Köln*:
+
+> Gestern veranstaltete "Fridays for Future" in Köln eine Laternendemo am
+> Bahnhofsvorplatz. Rund 2000 Menschen, darunter primär Studierende, erschienen
+> laut Angaben der Organisator:innen. Sie protestieren für Klimagerechtigkeit und
+> fordern eine Einhaltung des Pariser Abkommens von der Bundesregierung.
+
+| Field | Entry |
+|-----|-------|
+| Step 1 | Yes / Possibly |
+| Is this a protest? | yes |
+| Event Date | 2025-11-14 (published 15th, "gestern") |
+| Number of Days | 1 |
+| Locations | Bahnhofsvorplatz \| Köln \| Nordrhein-Westfalen \| Deutschland |
+| Size Estimates | organizers \| rund 2000 \| 2000 \| Fridays for Future \| - |
+| Main Issue | Klimagerechtigkeit und Einhaltung des Pariser Abkommens |
+| Topics | Climate & Environment |
+| Primary Topic | Climate & Environment |
+| Citations | "Sie protestieren für Klimagerechtigkeit und fordern eine Einhaltung des Pariser Abkommens" |
+| Slogan | *(blank — none quoted)* |
+| Target | Bundesregierung |
+| Organizations | Fridays for Future |
+| Demographics | Studierende |
+| Counter-Protestors | No |
+| Police | Not reported |
+| Arrests | No |
+| Protester Violence | No |
+| Property Damage | No |
+| Injuries | No / No / No / No |
+| Deaths | No / No / No / No |
+| Sentiment | Neutral |
+| Keywords | Klimagerechtigkeit, Fridays for Future, Laternendemo, Köln, Pariser Abkommen |
+
+Note that the size estimate has no city: it refers to the whole event, which only
+took place in one city anyway.
+
+## Example 2 — one protest across several cities
+
+**Article** (published 2024-09-21), headline *Bundesweiter Klimastreik*:
+
+> Am gestrigen Freitag gingen bundesweit Zehntausende auf die Straße. In Berlin
+> versammelten sich laut Polizei 15.000 Menschen am Brandenburger Tor, in Hamburg
+> zählten die Veranstalter 10.000 Teilnehmer. In München fand ebenfalls eine
+> Kundgebung statt. Organisiert wurde der Streik von "Fridays for Future". In
+> Berlin kam es vereinzelt zu Auseinandersetzungen mit der Polizei.
+
+This is **one** protest: one organizer, one issue, one date. Three cities go into
+*Locations*:
+
+```
+Brandenburger Tor | Berlin | Berlin | Deutschland
+- | Hamburg | Hamburg | Deutschland
+- | München | Bayern | Deutschland
+```
+
+and three separate numbers go into *Size Estimates*:
+
+```
+police | 15.000 | 15000 | Polizei Berlin | Berlin
+organizers | 10.000 | 10000 | Fridays for Future | Hamburg
+unattributed | Zehntausende | 20000 | - | -
+```
+
+The rest of the form:
+
+| Field | Entry |
+|-----|-------|
+| Step 1 | Yes / Possibly |
+| Is this a protest? | yes |
+| Event Date | 2024-09-20 |
+| Number of Days | 1 |
+| Locations | the three lines above |
+| Size Estimates | the three lines above |
+| Main Issue | Klimaschutz |
+| Topics / Primary | Climate & Environment |
+| Citations | "Bundesweiter Klimastreik" |
+| Slogan | *(blank)* |
+| Target | *(blank — none named)* |
+| Organizations | Fridays for Future |
+| Demographics | *(blank)* |
+| Counter-Protestors | No |
+| Police | **Present** — details: "vereinzelt zu Auseinandersetzungen mit der Polizei" in Berlin |
+| Arrests | No |
+| Protester Violence | No — "Auseinandersetzungen" alone is too vague to code as violence by protesters; add a note |
+| Property Damage | No |
+| Injuries / Deaths | No throughout |
+| Sentiment | Neutral |
+| Keywords | Klimastreik, Fridays for Future, Berlin, Hamburg, München |
+
+Note the München line: a city named as a site of the protest is listed even though
+the article gives no venue and no number for it.
+
+# Before you submit — checklist
+
+* [ ] Step 1 answered.
+* [ ] Every free-text box **added** with Shift + Enter or the *Add* button, and the
+      text visible as an entry below the box.
+* [ ] Every yes/no block answered — counter-protestors, police, arrests, protester
+      violence, property damage, four injuries, four deaths.
+* [ ] Sentiment set.
+* [ ] Every number in the article that refers to crowd size is on its own line in
+      *Size Estimates*, with its source.
+* [ ] Every city named as a site of the protest is in *Locations*.
+* [ ] Exactly one primary topic, and it is among the ticked topics.
+* [ ] One protest block per genuinely distinct event — no block opened for a
+      counter-demo or for a second city.
+* [ ] A note written for anything you were unsure about.
+
+# Frequently asked questions
+
+**The article describes a protest but gives almost no detail. Do I still code it?**
+Yes. Answer Step 1 with "Yes / Possibly", fill what is there, leave the rest blank,
+and answer all the yes/no questions with No.
+
+**I disagree with the sentiment of an article but cannot point to a passage.**
+Then it is neutral. Sentiment must be defensible from the text.
+
+**The article contradicts itself about a number.**
+Enter both numbers as separate lines in *Size Estimates* with their sources, and
+note the contradiction.
+
+**The protest is abroad and I do not know the region.**
+Put `-` in the Bundesland position and the country in German.
+
+**The article is in a language other than German.**
+If you can read it, code it. If not, note it and Skip.
+
+**Am I supposed to be fast?**
+No. Every article you code carefully is worth several coded quickly. If you are
+consistently unsure about a rule, that is worth reporting — it means the codebook
+needs fixing, and fixing it is part of the point of this exercise.
+
+**Something in the interface behaves oddly.**
+Note the article ID from the bottom left of the screen and report it. Do not try to
+work around it silently.

@@ -1,0 +1,1245 @@
+<View>
+  <Style>
+    .article-panel {
+      background: #fafafa;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 12px;
+    }
+    .overview-section {
+      background: #e8f5e9;
+      border: 1px solid #a5d6a7;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .protest-block {
+      background: #e3f2fd;
+      border: 2px solid #42a5f5;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+    .protest-block-2 {
+      background: #f3e5f5;
+      border: 2px solid #ab47bc;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+    .protest-block-3 {
+      background: #fff3e0;
+      border: 2px solid #ffa726;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+    .protest-block-4 {
+      background: #e8f5e9;
+      border: 2px solid #66bb6a;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+    .protest-block-5 {
+      background: #fce4ec;
+      border: 2px solid #ec407a;
+      border-radius: 8px;
+      padding: 14px;
+      margin: 10px 0;
+    }
+    .add-more {
+      border: 2px dashed #bdbdbd;
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin: 6px 0;
+      background: #fafafa;
+    }
+    .field-group {
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 8px 10px;
+      margin: 6px 0;
+    }
+    .field-danger {
+      background: #fff8f8;
+      border: 1px solid #ffcdd2;
+      border-radius: 4px;
+      padding: 8px 10px;
+      margin: 6px 0;
+    }
+    .notes-section {
+      background: #f5f0fb;
+      border-left: 4px solid #7b1fa2;
+      padding: 8px 10px;
+      margin: 10px 0;
+      border-radius: 0 4px 4px 0;
+    }
+  </Style>
+
+  <View style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;">
+
+    <!-- ===== LEFT PANEL: article text (sticky) ===== -->
+    <View className="article-panel"
+          style="position: sticky; top: 0; max-height: 95vh; overflow-y: auto;">
+      <Header value="Article"/>
+      <HyperText name="article_text" value="$fulltext" inline="true"/>
+    </View>
+
+    <!-- ===== RIGHT PANEL: annotation form ===== -->
+    <View style="overflow-y: auto; max-height: 95vh;">
+
+      <!-- OVERVIEW -->
+      <View className="overview-section">
+        <Header value="Step 1 — Does this article describe a protest?"/>
+        <Choices name="has_protest" toName="article_text"
+                 choice="single" showInline="true" required="true">
+          <Choice value="yes_or_unsure"
+                  label="Yes / Possibly — code protest(s) below"
+                  background="#66bb6a"/>
+          <Choice value="no"
+                  label="No protest event described"
+                  background="#bdbdbd"/>
+        </Choices>
+      </View>
+
+      <!-- ================================================================
+           PROTEST 1 — always visible once has_protest = yes_or_unsure
+           ================================================================ -->
+      <View visiblewhen="choice-selected"
+            whenTagName="has_protest"
+            whenChoiceValue="yes_or_unsure">
+
+        <View className="protest-block">
+          <Header value="Protest 1"/>
+
+          <View className="field-group">
+            <Header size="5" value="Is this a protest? (yes = clear; unsure = ambiguous event)"/>
+            <Choices name="is_protest_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes"    label="yes"    background="#66bb6a"/>
+              <Choice value="unsure" label="unsure" background="#ffa726"/>
+            </Choices>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Event Date (YYYY-MM-DD — derive from article date + relative terms)"/>
+            <TextArea name="event_date_1" toName="article_text" rows="1"
+                      placeholder="e.g. 2024-09-20"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Number of Days"/>
+            <TextArea name="num_days_1" toName="article_text" rows="1"
+                      placeholder="e.g. 1"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Locations (one per line: Venue or - | City | Bundesland | Country)"/>
+            <TextArea name="locations_1" toName="article_text" rows="3"
+                      placeholder="Brandenburger Tor | Berlin | Berlin | Deutschland&#10;- | Hamburg | Hamburg | Deutschland"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Protest Size Estimates"/>
+            <TextArea name="size_estimates_1" toName="article_text" rows="4"
+                      placeholder="One estimate per line:&#10;source_type | VERBATIM TEXT FROM ARTICLE | conservative number | source name or - | city or -&#10;source_type: organizers / police / media / other / unattributed / unclear&#10;e.g. police | 15.000 | 15000 | Polizei Berlin | Berlin&#10;e.g. organizers | Zehntausende | 20000 | Fridays for Future | -"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Main Issue (central demand or grievance)"/>
+            <TextArea name="main_issue_1" toName="article_text" rows="2"
+                      placeholder="e.g. Klimagerechtigkeit und Einhaltung des Pariser Abkommens"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Topics — all that apply"/>
+            <Choices name="topics_1" toName="article_text" choice="multiple" showInline="false">
+              <Choice value="climate_environment"      label="Climate &amp; Environment"/>
+              <Choice value="social_justice"           label="Social Justice"/>
+              <Choice value="racism_discrimination"    label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism"      label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism"          label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights"             label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum"       label="Immigration / Asylum"/>
+              <Choice value="war_peace"                label="War / Peace"/>
+              <Choice value="economic_inequality"      label="Economic Inequality"/>
+              <Choice value="labor_workers_rights"     label="Labor / Workers' Rights"/>
+              <Choice value="housing"                  label="Housing"/>
+              <Choice value="education"                label="Education"/>
+              <Choice value="healthcare"               label="Healthcare"/>
+              <Choice value="digital_privacy"          label="Digital / Privacy"/>
+              <Choice value="eu_politics"              label="EU Politics"/>
+              <Choice value="energy_policy"            label="Energy Policy"/>
+              <Choice value="covid_health_policy"      label="COVID / Health Policy"/>
+              <Choice value="east_west_issues"         label="East-West Issues"/>
+              <Choice value="other"                    label="Other"/>
+            </Choices>
+            <Header size="5" value="Which topic is primary?"/>
+            <Choices name="primary_topic_1" toName="article_text" choice="single" showInline="false">
+              <Choice value="climate_environment"      label="Climate &amp; Environment"/>
+              <Choice value="social_justice"           label="Social Justice"/>
+              <Choice value="racism_discrimination"    label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism"      label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism"          label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights"             label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum"       label="Immigration / Asylum"/>
+              <Choice value="war_peace"                label="War / Peace"/>
+              <Choice value="economic_inequality"      label="Economic Inequality"/>
+              <Choice value="labor_workers_rights"     label="Labor / Workers' Rights"/>
+              <Choice value="housing"                  label="Housing"/>
+              <Choice value="education"                label="Education"/>
+              <Choice value="healthcare"               label="Healthcare"/>
+              <Choice value="digital_privacy"          label="Digital / Privacy"/>
+              <Choice value="eu_politics"              label="EU Politics"/>
+              <Choice value="energy_policy"            label="Energy Policy"/>
+              <Choice value="covid_health_policy"      label="COVID / Health Policy"/>
+              <Choice value="east_west_issues"         label="East-West Issues"/>
+              <Choice value="other"                    label="Other"/>
+            </Choices>
+            <TextArea name="topic_citations_1" toName="article_text" rows="2"
+                      placeholder="Key verbatim quotes from the article supporting the topic classification"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Protest Slogan (leave blank if none mentioned)"/>
+            <TextArea name="slogan_1" toName="article_text" rows="1"
+                      placeholder="Main slogan if mentioned in article"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Target (who or what is the protest directed at?)"/>
+            <TextArea name="target_1" toName="article_text" rows="1"
+                      placeholder="e.g. Bundesregierung, Bundestag, specific company"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Organizing Groups (one per line)"/>
+            <TextArea name="organizations_1" toName="article_text" rows="2"
+                      placeholder="e.g. Fridays for Future&#10;ver.di"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Participant Demographics (one group per line)"/>
+            <TextArea name="demographics_1" toName="article_text" rows="2"
+                      placeholder="e.g. Studierende&#10;Gewerkschaftsmitglieder"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Counter-Protestors Reported?"/>
+            <Choices name="counterprotestors_reported_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="counterprotestors_details_1" toName="article_text" rows="2"
+                      placeholder="Who? Estimated number?"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Police"/>
+            <Choices name="police_present_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes"          label="Present"      background="#ef9a9a"/>
+              <Choice value="no"           label="Not present"  background="#a5d6a7"/>
+              <Choice value="not_reported" label="Not reported" background="#e0e0e0"/>
+            </Choices>
+            <TextArea name="police_details_1" toName="article_text" rows="2"
+                      placeholder="Actions beyond mere presence, violence if any"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Arrests Reported?"/>
+            <Choices name="arrests_reported_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="arrests_number_1" toName="article_text" rows="1"
+                      placeholder="Number of arrests, or 'unknown'"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Protester Violence Reported?"/>
+            <Choices name="prot_violence_reported_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <Header size="5" value="Violence Type (if yes)"/>
+            <Choices name="prot_violence_type_1" toName="article_text" choice="single" showInline="false">
+              <Choice value="1" label="1 — Weapons only"/>
+              <Choice value="2" label="2 — Physical assault only"/>
+              <Choice value="3" label="3 — Other violence only"/>
+              <Choice value="4" label="4 — Weapons + Physical"/>
+              <Choice value="5" label="5 — Weapons + Other"/>
+              <Choice value="6" label="6 — Physical + Other"/>
+              <Choice value="7" label="7 — Weapons + Physical + Other"/>
+            </Choices>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Property Damage Reported?"/>
+            <Choices name="property_damage_reported_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="property_damage_euros_1" toName="article_text" rows="1"
+                      placeholder="Amount in euros, or 'unknown'"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Injuries"/>
+            <Header size="5" value="Protesters injured?"/>
+            <Choices name="injuries_protesters_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_protesters_n_1" toName="article_text" rows="1"
+                      placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Bystanders injured?"/>
+            <Choices name="injuries_bystanders_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_bystanders_n_1" toName="article_text" rows="1"
+                      placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Police injured?"/>
+            <Choices name="injuries_police_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_police_n_1" toName="article_text" rows="1"
+                      placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Others injured?"/>
+            <Choices name="injuries_others_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_others_n_1"   toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <TextArea name="injuries_others_who_1" toName="article_text" rows="1" placeholder="Who are 'others'?"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Deaths"/>
+            <Header size="5" value="Protesters killed?"/>
+            <Choices name="deaths_protesters_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_protesters_n_1" toName="article_text" rows="1"
+                      placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Bystanders killed?"/>
+            <Choices name="deaths_bystanders_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_bystanders_n_1" toName="article_text" rows="1"
+                      placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Police killed?"/>
+            <Choices name="deaths_police_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_police_n_1" toName="article_text" rows="1"
+                      placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Others killed?"/>
+            <Choices name="deaths_others_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_others_n_1"   toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <TextArea name="deaths_others_who_1" toName="article_text" rows="1" placeholder="Who are 'others'?"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Sentiment (how does the article frame the protest?)"/>
+            <Choices name="sentiment_1" toName="article_text" choice="single" showInline="true">
+              <Choice value="positive" label="Positive (sympathetic)"           background="#66bb6a"/>
+              <Choice value="neutral"  label="Neutral (factual)"                background="#90caf9"/>
+              <Choice value="negative" label="Negative (dismissive/threatening)" background="#ef9a9a"/>
+            </Choices>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Keywords (comma-separated)"/>
+            <TextArea name="keywords_1" toName="article_text" rows="1"
+                      placeholder="e.g. Klimastreik, Fridays for Future, Berlin"/>
+          </View>
+
+        </View><!-- end protest-block 1 -->
+
+        <!-- Add protest 2 toggle -->
+        <View className="add-more">
+          <Choices name="add_protest_2" toName="article_text" choice="multiple" showInline="true">
+            <Choice value="\+ This article contains a second distinct protest event"/>
+          </Choices>
+        </View>
+
+      </View><!-- end visiblewhen has_protest=yes_or_unsure -->
+
+      <!-- ================================================================
+           PROTEST 2 — visible when add_protest_2 = yes
+           ================================================================ -->
+      <View visiblewhen="choice-selected"
+            whenTagName="add_protest_2"
+            whenChoiceValue="+ This article contains a second distinct protest event">
+
+        <View className="protest-block-2">
+          <Header value="Protest 2"/>
+
+          <View className="field-group">
+            <Header size="5" value="Is this a protest?"/>
+            <Choices name="is_protest_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes"    label="yes"    background="#66bb6a"/>
+              <Choice value="unsure" label="unsure" background="#ffa726"/>
+            </Choices>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Event Date (YYYY-MM-DD)"/>
+            <TextArea name="event_date_2" toName="article_text" rows="1" placeholder="e.g. 2024-09-20"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Number of Days"/>
+            <TextArea name="num_days_2" toName="article_text" rows="1" placeholder="e.g. 1"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Locations (one per line: Venue or - | City | Bundesland | Country)"/>
+            <TextArea name="locations_2" toName="article_text" rows="3"
+                      placeholder="- | München | Bayern | Deutschland"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Protest Size Estimates (source_type | verbatim text | number | source | city)"/>
+            <TextArea name="size_estimates_2" toName="article_text" rows="3"
+                      placeholder="organizers | rund 500 | 500 | - | -"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Main Issue"/>
+            <TextArea name="main_issue_2" toName="article_text" rows="2" placeholder="Central demand or grievance"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Topics — all that apply"/>
+            <Choices name="topics_2" toName="article_text" choice="multiple" showInline="false">
+              <Choice value="climate_environment"      label="Climate &amp; Environment"/>
+              <Choice value="social_justice"           label="Social Justice"/>
+              <Choice value="racism_discrimination"    label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism"      label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism"          label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights"             label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum"       label="Immigration / Asylum"/>
+              <Choice value="war_peace"                label="War / Peace"/>
+              <Choice value="economic_inequality"      label="Economic Inequality"/>
+              <Choice value="labor_workers_rights"     label="Labor / Workers' Rights"/>
+              <Choice value="housing"                  label="Housing"/>
+              <Choice value="education"                label="Education"/>
+              <Choice value="healthcare"               label="Healthcare"/>
+              <Choice value="digital_privacy"          label="Digital / Privacy"/>
+              <Choice value="eu_politics"              label="EU Politics"/>
+              <Choice value="energy_policy"            label="Energy Policy"/>
+              <Choice value="covid_health_policy"      label="COVID / Health Policy"/>
+              <Choice value="east_west_issues"         label="East-West Issues"/>
+              <Choice value="other"                    label="Other"/>
+            </Choices>
+            <Header size="5" value="Which topic is primary?"/>
+            <Choices name="primary_topic_2" toName="article_text" choice="single" showInline="false">
+              <Choice value="climate_environment"      label="Climate &amp; Environment"/>
+              <Choice value="social_justice"           label="Social Justice"/>
+              <Choice value="racism_discrimination"    label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism"      label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism"          label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights"             label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum"       label="Immigration / Asylum"/>
+              <Choice value="war_peace"                label="War / Peace"/>
+              <Choice value="economic_inequality"      label="Economic Inequality"/>
+              <Choice value="labor_workers_rights"     label="Labor / Workers' Rights"/>
+              <Choice value="housing"                  label="Housing"/>
+              <Choice value="education"                label="Education"/>
+              <Choice value="healthcare"               label="Healthcare"/>
+              <Choice value="digital_privacy"          label="Digital / Privacy"/>
+              <Choice value="eu_politics"              label="EU Politics"/>
+              <Choice value="energy_policy"            label="Energy Policy"/>
+              <Choice value="covid_health_policy"      label="COVID / Health Policy"/>
+              <Choice value="east_west_issues"         label="East-West Issues"/>
+              <Choice value="other"                    label="Other"/>
+            </Choices>
+            <TextArea name="topic_citations_2" toName="article_text" rows="2"
+                      placeholder="Key verbatim quotes supporting the topic classification"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Protest Slogan"/>
+            <TextArea name="slogan_2" toName="article_text" rows="1" placeholder="Main slogan if mentioned"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Target"/>
+            <TextArea name="target_2" toName="article_text" rows="1" placeholder="Who or what is the protest directed at?"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Organizing Groups (one per line)"/>
+            <TextArea name="organizations_2" toName="article_text" rows="2" placeholder="e.g. ver.di"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Participant Demographics (one group per line)"/>
+            <TextArea name="demographics_2" toName="article_text" rows="2" placeholder="e.g. Beschäftigte im öffentlichen Dienst"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Counter-Protestors Reported?"/>
+            <Choices name="counterprotestors_reported_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="counterprotestors_details_2" toName="article_text" rows="2" placeholder="Who? Estimated number?"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Police"/>
+            <Choices name="police_present_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes"          label="Present"      background="#ef9a9a"/>
+              <Choice value="no"           label="Not present"  background="#a5d6a7"/>
+              <Choice value="not_reported" label="Not reported" background="#e0e0e0"/>
+            </Choices>
+            <TextArea name="police_details_2" toName="article_text" rows="2" placeholder="Actions beyond presence, violence if any"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Arrests Reported?"/>
+            <Choices name="arrests_reported_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="arrests_number_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Protester Violence Reported?"/>
+            <Choices name="prot_violence_reported_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <Header size="5" value="Violence Type (if yes)"/>
+            <Choices name="prot_violence_type_2" toName="article_text" choice="single" showInline="false">
+              <Choice value="1" label="1 — Weapons only"/>
+              <Choice value="2" label="2 — Physical assault only"/>
+              <Choice value="3" label="3 — Other violence only"/>
+              <Choice value="4" label="4 — Weapons + Physical"/>
+              <Choice value="5" label="5 — Weapons + Other"/>
+              <Choice value="6" label="6 — Physical + Other"/>
+              <Choice value="7" label="7 — Weapons + Physical + Other"/>
+            </Choices>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Property Damage Reported?"/>
+            <Choices name="property_damage_reported_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/>
+              <Choice value="no"  label="No"  background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="property_damage_euros_2" toName="article_text" rows="1" placeholder="Amount in euros, or 'unknown'"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Injuries"/>
+            <Header size="5" value="Protesters injured?"/>
+            <Choices name="injuries_protesters_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_protesters_n_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Bystanders injured?"/>
+            <Choices name="injuries_bystanders_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_bystanders_n_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Police injured?"/>
+            <Choices name="injuries_police_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_police_n_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Others injured?"/>
+            <Choices name="injuries_others_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_others_n_2"   toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <TextArea name="injuries_others_who_2" toName="article_text" rows="1" placeholder="Who are 'others'?"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Deaths"/>
+            <Header size="5" value="Protesters killed?"/>
+            <Choices name="deaths_protesters_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_protesters_n_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Bystanders killed?"/>
+            <Choices name="deaths_bystanders_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_bystanders_n_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Police killed?"/>
+            <Choices name="deaths_police_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_police_n_2" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <Header size="5" value="Others killed?"/>
+            <Choices name="deaths_others_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_others_n_2"   toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+            <TextArea name="deaths_others_who_2" toName="article_text" rows="1" placeholder="Who are 'others'?"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Sentiment"/>
+            <Choices name="sentiment_2" toName="article_text" choice="single" showInline="true">
+              <Choice value="positive" label="Positive (sympathetic)"           background="#66bb6a"/>
+              <Choice value="neutral"  label="Neutral (factual)"                background="#90caf9"/>
+              <Choice value="negative" label="Negative (dismissive/threatening)" background="#ef9a9a"/>
+            </Choices>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Keywords (comma-separated)"/>
+            <TextArea name="keywords_2" toName="article_text" rows="1" placeholder="e.g. Streik, ver.di, Hamburg"/>
+          </View>
+
+          <!-- Add protest 3 toggle -->
+          <View className="add-more">
+            <Choices name="add_protest_3" toName="article_text" choice="multiple" showInline="true">
+              <Choice value="\+ This article contains a third distinct protest event"/>
+            </Choices>
+          </View>
+
+        </View><!-- end protest-block-2 -->
+      </View><!-- end visiblewhen add_protest_2=yes -->
+
+      <!-- ================================================================
+           PROTEST 3 — visible when add_protest_3 = yes
+           ================================================================ -->
+      <View visiblewhen="choice-selected"
+            whenTagName="add_protest_3"
+            whenChoiceValue="+ This article contains a second distinct protest event">
+
+        <View className="protest-block-3">
+          <Header value="Protest 3"/>
+
+          <View className="field-group">
+            <Header size="5" value="Is this a protest?"/>
+            <Choices name="is_protest_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="yes" background="#66bb6a"/>
+              <Choice value="unsure" label="unsure" background="#ffa726"/>
+            </Choices>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Event Date (YYYY-MM-DD)"/>
+            <TextArea name="event_date_3" toName="article_text" rows="1" placeholder="e.g. 2024-09-20"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Number of Days"/>
+            <TextArea name="num_days_3" toName="article_text" rows="1" placeholder="e.g. 1"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Locations (one per line: Venue or - | City | Bundesland | Country)"/>
+            <TextArea name="locations_3" toName="article_text" rows="3" placeholder="- | Frankfurt | Hessen | Deutschland"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Protest Size Estimates (source_type | verbatim text | number | source | city)"/>
+            <TextArea name="size_estimates_3" toName="article_text" rows="3" placeholder="unattributed | Hunderte | 200 | - | -"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Main Issue"/>
+            <TextArea name="main_issue_3" toName="article_text" rows="2" placeholder="Central demand or grievance"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Topics — all that apply"/>
+            <Choices name="topics_3" toName="article_text" choice="multiple" showInline="false">
+              <Choice value="climate_environment"      label="Climate &amp; Environment"/>
+              <Choice value="social_justice"           label="Social Justice"/>
+              <Choice value="racism_discrimination"    label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism"      label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism"          label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights"             label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum"       label="Immigration / Asylum"/>
+              <Choice value="war_peace"                label="War / Peace"/>
+              <Choice value="economic_inequality"      label="Economic Inequality"/>
+              <Choice value="labor_workers_rights"     label="Labor / Workers' Rights"/>
+              <Choice value="housing"                  label="Housing"/>
+              <Choice value="education"                label="Education"/>
+              <Choice value="healthcare"               label="Healthcare"/>
+              <Choice value="digital_privacy"          label="Digital / Privacy"/>
+              <Choice value="eu_politics"              label="EU Politics"/>
+              <Choice value="energy_policy"            label="Energy Policy"/>
+              <Choice value="covid_health_policy"      label="COVID / Health Policy"/>
+              <Choice value="east_west_issues"         label="East-West Issues"/>
+              <Choice value="other"                    label="Other"/>
+            </Choices>
+            <Header size="5" value="Which topic is primary?"/>
+            <Choices name="primary_topic_3" toName="article_text" choice="single" showInline="false">
+              <Choice value="climate_environment"      label="Climate &amp; Environment"/>
+              <Choice value="social_justice"           label="Social Justice"/>
+              <Choice value="racism_discrimination"    label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism"      label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism"          label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights"             label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum"       label="Immigration / Asylum"/>
+              <Choice value="war_peace"                label="War / Peace"/>
+              <Choice value="economic_inequality"      label="Economic Inequality"/>
+              <Choice value="labor_workers_rights"     label="Labor / Workers' Rights"/>
+              <Choice value="housing"                  label="Housing"/>
+              <Choice value="education"                label="Education"/>
+              <Choice value="healthcare"               label="Healthcare"/>
+              <Choice value="digital_privacy"          label="Digital / Privacy"/>
+              <Choice value="eu_politics"              label="EU Politics"/>
+              <Choice value="energy_policy"            label="Energy Policy"/>
+              <Choice value="covid_health_policy"      label="COVID / Health Policy"/>
+              <Choice value="east_west_issues"         label="East-West Issues"/>
+              <Choice value="other"                    label="Other"/>
+            </Choices>
+            <TextArea name="topic_citations_3" toName="article_text" rows="2" placeholder="Key verbatim quotes"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Protest Slogan"/><TextArea name="slogan_3" toName="article_text" rows="1" placeholder="Main slogan if mentioned"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Target"/><TextArea name="target_3" toName="article_text" rows="1" placeholder="Who or what is the protest directed at?"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Organizing Groups (one per line)"/><TextArea name="organizations_3" toName="article_text" rows="2" placeholder="e.g. BUND"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Participant Demographics (one group per line)"/><TextArea name="demographics_3" toName="article_text" rows="2" placeholder="e.g. Bauern"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Counter-Protestors Reported?"/>
+            <Choices name="counterprotestors_reported_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="counterprotestors_details_3" toName="article_text" rows="2" placeholder="Who? Estimated number?"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Police"/>
+            <Choices name="police_present_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Present" background="#ef9a9a"/>
+              <Choice value="no" label="Not present" background="#a5d6a7"/>
+              <Choice value="not_reported" label="Not reported" background="#e0e0e0"/>
+            </Choices>
+            <TextArea name="police_details_3" toName="article_text" rows="2" placeholder="Actions, violence if any"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Arrests Reported?"/>
+            <Choices name="arrests_reported_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="arrests_number_3" toName="article_text" rows="1" placeholder="Number, or 'unknown'"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Protester Violence Reported?"/>
+            <Choices name="prot_violence_reported_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <Header size="5" value="Violence Type (if yes)"/>
+            <Choices name="prot_violence_type_3" toName="article_text" choice="single" showInline="false">
+              <Choice value="1" label="1 — Weapons only"/><Choice value="2" label="2 — Physical only"/>
+              <Choice value="3" label="3 — Other only"/><Choice value="4" label="4 — Weapons + Physical"/>
+              <Choice value="5" label="5 — Weapons + Other"/><Choice value="6" label="6 — Physical + Other"/>
+              <Choice value="7" label="7 — All three"/>
+            </Choices>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Property Damage Reported?"/>
+            <Choices name="property_damage_reported_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="property_damage_euros_3" toName="article_text" rows="1" placeholder="Euros, or 'unknown'"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Injuries"/>
+            <Header size="5" value="Protesters?"/>
+            <Choices name="injuries_protesters_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_protesters_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Bystanders?"/>
+            <Choices name="injuries_bystanders_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_bystanders_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Police?"/>
+            <Choices name="injuries_police_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_police_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Others?"/>
+            <Choices name="injuries_others_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_others_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <TextArea name="injuries_others_who_3" toName="article_text" rows="1" placeholder="Who?"/>
+          </View>
+
+          <View className="field-danger">
+            <Header size="5" value="Deaths"/>
+            <Header size="5" value="Protesters?"/>
+            <Choices name="deaths_protesters_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_protesters_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Bystanders?"/>
+            <Choices name="deaths_bystanders_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_bystanders_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Police?"/>
+            <Choices name="deaths_police_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_police_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Others?"/>
+            <Choices name="deaths_others_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_others_n_3" toName="article_text" rows="1" placeholder="Number"/>
+            <TextArea name="deaths_others_who_3" toName="article_text" rows="1" placeholder="Who?"/>
+          </View>
+
+          <View className="field-group">
+            <Header size="5" value="Sentiment"/>
+            <Choices name="sentiment_3" toName="article_text" choice="single" showInline="true">
+              <Choice value="positive" label="Positive" background="#66bb6a"/>
+              <Choice value="neutral"  label="Neutral"  background="#90caf9"/>
+              <Choice value="negative" label="Negative" background="#ef9a9a"/>
+            </Choices>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Keywords (comma-separated)"/>
+            <TextArea name="keywords_3" toName="article_text" rows="1" placeholder="Keywords"/>
+          </View>
+
+          <!-- Add protest 4 toggle -->
+          <View className="add-more">
+            <Choices name="add_protest_4" toName="article_text" choice="multiple" showInline="true">
+              <Choice value="\+ This article contains a fourth distinct protest event"/>
+            </Choices>
+          </View>
+
+        </View><!-- end protest-block-3 -->
+      </View><!-- end visiblewhen add_protest_3=yes -->
+
+      <!-- ================================================================
+           PROTEST 4 — visible when add_protest_4 = yes
+           ================================================================ -->
+      <View visiblewhen="choice-selected"
+            whenTagName="add_protest_4"
+            whenChoiceValue="+ This article contains a second distinct protest event">
+
+        <View className="protest-block-4">
+          <Header value="Protest 4"/>
+
+          <View className="field-group">
+            <Header size="5" value="Is this a protest?"/>
+            <Choices name="is_protest_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="yes" background="#66bb6a"/><Choice value="unsure" label="unsure" background="#ffa726"/>
+            </Choices>
+          </View>
+          <View className="field-group"><Header size="5" value="Event Date (YYYY-MM-DD)"/>
+            <TextArea name="event_date_4" toName="article_text" rows="1" placeholder="e.g. 2024-09-20"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Number of Days"/>
+            <TextArea name="num_days_4" toName="article_text" rows="1" placeholder="e.g. 1"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Locations (Venue or - | City | Bundesland | Country)"/>
+            <TextArea name="locations_4" toName="article_text" rows="3" placeholder="- | City | Bundesland | Country"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Size Estimates (source_type | verbatim | number | source | city)"/>
+            <TextArea name="size_estimates_4" toName="article_text" rows="3" placeholder="unattributed | Tausende | 2000 | - | -"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Main Issue"/>
+            <TextArea name="main_issue_4" toName="article_text" rows="2" placeholder="Central demand or grievance"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Topics — all that apply"/>
+            <Choices name="topics_4" toName="article_text" choice="multiple" showInline="false">
+              <Choice value="climate_environment" label="Climate &amp; Environment"/>
+              <Choice value="social_justice" label="Social Justice"/>
+              <Choice value="racism_discrimination" label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism" label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism" label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights" label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum" label="Immigration / Asylum"/>
+              <Choice value="war_peace" label="War / Peace"/>
+              <Choice value="economic_inequality" label="Economic Inequality"/>
+              <Choice value="labor_workers_rights" label="Labor / Workers' Rights"/>
+              <Choice value="housing" label="Housing"/>
+              <Choice value="education" label="Education"/>
+              <Choice value="healthcare" label="Healthcare"/>
+              <Choice value="digital_privacy" label="Digital / Privacy"/>
+              <Choice value="eu_politics" label="EU Politics"/>
+              <Choice value="energy_policy" label="Energy Policy"/>
+              <Choice value="covid_health_policy" label="COVID / Health Policy"/>
+              <Choice value="east_west_issues" label="East-West Issues"/>
+              <Choice value="other" label="Other"/>
+            </Choices>
+            <Header size="5" value="Primary topic?"/>
+            <Choices name="primary_topic_4" toName="article_text" choice="single" showInline="false">
+              <Choice value="climate_environment" label="Climate &amp; Environment"/>
+              <Choice value="social_justice" label="Social Justice"/>
+              <Choice value="racism_discrimination" label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism" label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism" label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights" label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum" label="Immigration / Asylum"/>
+              <Choice value="war_peace" label="War / Peace"/>
+              <Choice value="economic_inequality" label="Economic Inequality"/>
+              <Choice value="labor_workers_rights" label="Labor / Workers' Rights"/>
+              <Choice value="housing" label="Housing"/>
+              <Choice value="education" label="Education"/>
+              <Choice value="healthcare" label="Healthcare"/>
+              <Choice value="digital_privacy" label="Digital / Privacy"/>
+              <Choice value="eu_politics" label="EU Politics"/>
+              <Choice value="energy_policy" label="Energy Policy"/>
+              <Choice value="covid_health_policy" label="COVID / Health Policy"/>
+              <Choice value="east_west_issues" label="East-West Issues"/>
+              <Choice value="other" label="Other"/>
+            </Choices>
+            <TextArea name="topic_citations_4" toName="article_text" rows="2" placeholder="Key verbatim quotes"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Slogan"/><TextArea name="slogan_4" toName="article_text" rows="1" placeholder="Main slogan if mentioned"/></View>
+          <View className="field-group"><Header size="5" value="Target"/><TextArea name="target_4" toName="article_text" rows="1" placeholder="Who or what is the protest directed at?"/></View>
+          <View className="field-group"><Header size="5" value="Organizations (one per line)"/><TextArea name="organizations_4" toName="article_text" rows="2" placeholder="Organizing groups"/></View>
+          <View className="field-group"><Header size="5" value="Demographics (one per line)"/><TextArea name="demographics_4" toName="article_text" rows="2" placeholder="Participant groups"/></View>
+
+          <View className="field-danger">
+            <Header size="5" value="Counter-Protestors?"/>
+            <Choices name="counterprotestors_reported_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="counterprotestors_details_4" toName="article_text" rows="2" placeholder="Who? Number?"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Police"/>
+            <Choices name="police_present_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Present" background="#ef9a9a"/>
+              <Choice value="no" label="Not present" background="#a5d6a7"/>
+              <Choice value="not_reported" label="Not reported" background="#e0e0e0"/>
+            </Choices>
+            <TextArea name="police_details_4" toName="article_text" rows="2" placeholder="Actions, violence if any"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Arrests?"/>
+            <Choices name="arrests_reported_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="arrests_number_4" toName="article_text" rows="1" placeholder="Number"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Protester Violence?"/>
+            <Choices name="prot_violence_reported_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <Choices name="prot_violence_type_4" toName="article_text" choice="single" showInline="false">
+              <Choice value="1" label="1 — Weapons only"/><Choice value="2" label="2 — Physical only"/>
+              <Choice value="3" label="3 — Other only"/><Choice value="4" label="4 — Weapons + Physical"/>
+              <Choice value="5" label="5 — Weapons + Other"/><Choice value="6" label="6 — Physical + Other"/>
+              <Choice value="7" label="7 — All three"/>
+            </Choices>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Property Damage?"/>
+            <Choices name="property_damage_reported_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="property_damage_euros_4" toName="article_text" rows="1" placeholder="Euros or 'unknown'"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Injuries"/>
+            <Header size="5" value="Protesters?"/>
+            <Choices name="injuries_protesters_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_protesters_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Bystanders?"/>
+            <Choices name="injuries_bystanders_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_bystanders_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Police?"/>
+            <Choices name="injuries_police_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_police_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Others?"/>
+            <Choices name="injuries_others_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_others_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <TextArea name="injuries_others_who_4" toName="article_text" rows="1" placeholder="Who?"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Deaths"/>
+            <Header size="5" value="Protesters?"/>
+            <Choices name="deaths_protesters_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_protesters_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Bystanders?"/>
+            <Choices name="deaths_bystanders_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_bystanders_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Police?"/>
+            <Choices name="deaths_police_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_police_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Others?"/>
+            <Choices name="deaths_others_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_others_n_4" toName="article_text" rows="1" placeholder="Number"/>
+            <TextArea name="deaths_others_who_4" toName="article_text" rows="1" placeholder="Who?"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Sentiment"/>
+            <Choices name="sentiment_4" toName="article_text" choice="single" showInline="true">
+              <Choice value="positive" label="Positive" background="#66bb6a"/>
+              <Choice value="neutral"  label="Neutral"  background="#90caf9"/>
+              <Choice value="negative" label="Negative" background="#ef9a9a"/>
+            </Choices>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Keywords"/>
+            <TextArea name="keywords_4" toName="article_text" rows="1" placeholder="Comma-separated"/>
+          </View>
+
+          <!-- Add protest 5 toggle -->
+          <View className="add-more">
+            <Choices name="add_protest_5" toName="article_text" choice="multiple" showInline="true">
+              <Choice value="\+ This article contains a fifth distinct protest event"/>
+            </Choices>
+          </View>
+
+        </View><!-- end protest-block-4 -->
+      </View><!-- end visiblewhen add_protest_4=yes -->
+
+      <!-- ================================================================
+           PROTEST 5 — visible when add_protest_5 = yes
+           ================================================================ -->
+      <View visiblewhen="choice-selected"
+            whenTagName="add_protest_5"
+            whenChoiceValue="+ This article contains a second distinct protest event">
+
+        <View className="protest-block-5">
+          <Header value="Protest 5"/>
+
+          <View className="field-group">
+            <Header size="5" value="Is this a protest?"/>
+            <Choices name="is_protest_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="yes" background="#66bb6a"/><Choice value="unsure" label="unsure" background="#ffa726"/>
+            </Choices>
+          </View>
+          <View className="field-group"><Header size="5" value="Event Date (YYYY-MM-DD)"/>
+            <TextArea name="event_date_5" toName="article_text" rows="1" placeholder="e.g. 2024-09-20"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Number of Days"/>
+            <TextArea name="num_days_5" toName="article_text" rows="1" placeholder="e.g. 1"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Locations (Venue or - | City | Bundesland | Country)"/>
+            <TextArea name="locations_5" toName="article_text" rows="3" placeholder="- | City | Bundesland | Country"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Size Estimates (source_type | verbatim | number | source | city)"/>
+            <TextArea name="size_estimates_5" toName="article_text" rows="3" placeholder="unattributed | Tausende | 2000 | - | -"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Main Issue"/>
+            <TextArea name="main_issue_5" toName="article_text" rows="2" placeholder="Central demand or grievance"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Topics — all that apply"/>
+            <Choices name="topics_5" toName="article_text" choice="multiple" showInline="false">
+              <Choice value="climate_environment" label="Climate &amp; Environment"/>
+              <Choice value="social_justice" label="Social Justice"/>
+              <Choice value="racism_discrimination" label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism" label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism" label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights" label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum" label="Immigration / Asylum"/>
+              <Choice value="war_peace" label="War / Peace"/>
+              <Choice value="economic_inequality" label="Economic Inequality"/>
+              <Choice value="labor_workers_rights" label="Labor / Workers' Rights"/>
+              <Choice value="housing" label="Housing"/>
+              <Choice value="education" label="Education"/>
+              <Choice value="healthcare" label="Healthcare"/>
+              <Choice value="digital_privacy" label="Digital / Privacy"/>
+              <Choice value="eu_politics" label="EU Politics"/>
+              <Choice value="energy_policy" label="Energy Policy"/>
+              <Choice value="covid_health_policy" label="COVID / Health Policy"/>
+              <Choice value="east_west_issues" label="East-West Issues"/>
+              <Choice value="other" label="Other"/>
+            </Choices>
+            <Header size="5" value="Primary topic?"/>
+            <Choices name="primary_topic_5" toName="article_text" choice="single" showInline="false">
+              <Choice value="climate_environment" label="Climate &amp; Environment"/>
+              <Choice value="social_justice" label="Social Justice"/>
+              <Choice value="racism_discrimination" label="Racism / Discrimination"/>
+              <Choice value="anti_rightwing_extremism" label="Anti-Right-Wing Extremism"/>
+              <Choice value="rightwing_extremism" label="Right-Wing Extremism"/>
+              <Choice value="gender_feminism" label="Gender / Feminism"/>
+              <Choice value="lgbtq_rights" label="LGBTQ+ Rights"/>
+              <Choice value="immigration_asylum" label="Immigration / Asylum"/>
+              <Choice value="war_peace" label="War / Peace"/>
+              <Choice value="economic_inequality" label="Economic Inequality"/>
+              <Choice value="labor_workers_rights" label="Labor / Workers' Rights"/>
+              <Choice value="housing" label="Housing"/>
+              <Choice value="education" label="Education"/>
+              <Choice value="healthcare" label="Healthcare"/>
+              <Choice value="digital_privacy" label="Digital / Privacy"/>
+              <Choice value="eu_politics" label="EU Politics"/>
+              <Choice value="energy_policy" label="Energy Policy"/>
+              <Choice value="covid_health_policy" label="COVID / Health Policy"/>
+              <Choice value="east_west_issues" label="East-West Issues"/>
+              <Choice value="other" label="Other"/>
+            </Choices>
+            <TextArea name="topic_citations_5" toName="article_text" rows="2" placeholder="Key verbatim quotes"/>
+          </View>
+          <View className="field-group"><Header size="5" value="Slogan"/><TextArea name="slogan_5" toName="article_text" rows="1" placeholder="Main slogan if mentioned"/></View>
+          <View className="field-group"><Header size="5" value="Target"/><TextArea name="target_5" toName="article_text" rows="1" placeholder="Who or what is the protest directed at?"/></View>
+          <View className="field-group"><Header size="5" value="Organizations (one per line)"/><TextArea name="organizations_5" toName="article_text" rows="2" placeholder="Organizing groups"/></View>
+          <View className="field-group"><Header size="5" value="Demographics (one per line)"/><TextArea name="demographics_5" toName="article_text" rows="2" placeholder="Participant groups"/></View>
+
+          <View className="field-danger">
+            <Header size="5" value="Counter-Protestors?"/>
+            <Choices name="counterprotestors_reported_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="counterprotestors_details_5" toName="article_text" rows="2" placeholder="Who? Number?"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Police"/>
+            <Choices name="police_present_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Present" background="#ef9a9a"/>
+              <Choice value="no" label="Not present" background="#a5d6a7"/>
+              <Choice value="not_reported" label="Not reported" background="#e0e0e0"/>
+            </Choices>
+            <TextArea name="police_details_5" toName="article_text" rows="2" placeholder="Actions, violence if any"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Arrests?"/>
+            <Choices name="arrests_reported_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="arrests_number_5" toName="article_text" rows="1" placeholder="Number"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Protester Violence?"/>
+            <Choices name="prot_violence_reported_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <Choices name="prot_violence_type_5" toName="article_text" choice="single" showInline="false">
+              <Choice value="1" label="1 — Weapons only"/><Choice value="2" label="2 — Physical only"/>
+              <Choice value="3" label="3 — Other only"/><Choice value="4" label="4 — Weapons + Physical"/>
+              <Choice value="5" label="5 — Weapons + Other"/><Choice value="6" label="6 — Physical + Other"/>
+              <Choice value="7" label="7 — All three"/>
+            </Choices>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Property Damage?"/>
+            <Choices name="property_damage_reported_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="property_damage_euros_5" toName="article_text" rows="1" placeholder="Euros or 'unknown'"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Injuries"/>
+            <Header size="5" value="Protesters?"/>
+            <Choices name="injuries_protesters_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_protesters_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Bystanders?"/>
+            <Choices name="injuries_bystanders_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_bystanders_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Police?"/>
+            <Choices name="injuries_police_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_police_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Others?"/>
+            <Choices name="injuries_others_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="injuries_others_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <TextArea name="injuries_others_who_5" toName="article_text" rows="1" placeholder="Who?"/>
+          </View>
+          <View className="field-danger">
+            <Header size="5" value="Deaths"/>
+            <Header size="5" value="Protesters?"/>
+            <Choices name="deaths_protesters_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_protesters_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Bystanders?"/>
+            <Choices name="deaths_bystanders_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_bystanders_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Police?"/>
+            <Choices name="deaths_police_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_police_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <Header size="5" value="Others?"/>
+            <Choices name="deaths_others_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="yes" label="Yes" background="#ef9a9a"/><Choice value="no" label="No" background="#a5d6a7"/>
+            </Choices>
+            <TextArea name="deaths_others_n_5" toName="article_text" rows="1" placeholder="Number"/>
+            <TextArea name="deaths_others_who_5" toName="article_text" rows="1" placeholder="Who?"/>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Sentiment"/>
+            <Choices name="sentiment_5" toName="article_text" choice="single" showInline="true">
+              <Choice value="positive" label="Positive" background="#66bb6a"/>
+              <Choice value="neutral"  label="Neutral"  background="#90caf9"/>
+              <Choice value="negative" label="Negative" background="#ef9a9a"/>
+            </Choices>
+          </View>
+          <View className="field-group">
+            <Header size="5" value="Keywords"/>
+            <TextArea name="keywords_5" toName="article_text" rows="1" placeholder="Comma-separated"/>
+          </View>
+
+        </View><!-- end protest-block-5 -->
+      </View><!-- end visiblewhen add_protest_5=yes -->
+
+      <!-- ===== ANNOTATOR NOTES ===== -->
+      <View className="notes-section">
+        <Header value="Annotator Notes (optional)"/>
+        <TextArea name="notes" toName="article_text" rows="3"
+                  placeholder="Uncertainties, edge cases, or observations. If article has more than 5 protests, note them here."/>
+      </View>
+
+    </View><!-- end right panel -->
+  </View>
+</View>

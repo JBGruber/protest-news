@@ -1,3 +1,9 @@
 .env
 data/
 rss2amcat/get_old_data.r
+validation/labelstudio_tasks.json
+validation/manual_validation.json
+llm-annotation/articles_annotated_parsed.rds
+validation.png
+validation/codebook_de.docx
+validation/codebook.docx
