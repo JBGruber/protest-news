@@ -74,7 +74,8 @@ services:
       - api
 
   api:
-    image: ccsamsterdam/amcat4_backend:${AMCAT4_VERSION:-latest}
+    #image: ccsamsterdam/amcat4_backend:${AMCAT4_VERSION:-latest}
+    image: jbgruber/amcat4_backend:mcp-beta
     restart: unless-stopped
     networks:
       - amcat-net
@@ -88,6 +89,7 @@ services:
       - amcat4_auth
       - amcat4_middlecat_url
       - amcat4_admin_email
+      - amcat4_mcp_enabled
     depends_on:
       amcat-elasticsearch:
         condition: service_healthy

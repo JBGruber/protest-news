@@ -24,6 +24,7 @@ unhydrated <- query_documents(
     hydrated = list(exists = FALSE),
     hydration_attempts = list(exists = FALSE)
   ),
+  max_pages = 1,
   verbose = FALSE
 )
 
@@ -62,9 +63,10 @@ if (nrow(unhydrated) > 0) {
   library(paperboy)
   # 2. hydrate articles
   processed_entries_raw <- unhydrated |>
-    pull(url) |>
+    pull(url) |> 
     pb_collect(collect_rss = FALSE, ignore_fails = TRUE) |>
-    pb_deliver(try_default = FALSE, ignore_fails = TRUE)
+    filter(!domain %in% c("bnn.de")) |> 
+    pb_deliver(try_default = FALSE)
 
   # 3. process for AmCAT
   processed_entries <- processed_entries_raw |>
